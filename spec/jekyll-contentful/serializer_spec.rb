@@ -1,0 +1,58 @@
+require 'spec_helper'
+
+describe Jekyll::Contentful::Serializer do
+  let(:entries) { [EntryDouble.new('foo')] }
+  subject { described_class.new(entries, {}) }
+
+  describe 'instance methods' do
+    describe '#serialize' do
+      describe 'uses proper mapper' do
+        it 'uses default mappen if none specified in config' do
+          expect_any_instance_of(Jekyll::Contentful::Mappers::Base).to receive(:map)
+
+          subject.serialize
+        end
+
+        it 'uses specified mapper' do
+          subject.instance_variable_set(:@config, {'content_types' => {'' => 'MapperDouble'}})
+
+          expect_any_instance_of(MapperDouble).to receive(:map)
+
+          subject.serialize
+        end
+      end
+
+      it 'serializes a single entry without fields' do
+        expected = [{'sys' => {'id' => 'foo'}}]
+        expect(subject.serialize).to eq(expected)
+      end
+
+      it 'serializes a single entry with fields' do
+        subject.instance_variable_set(:@entries, [EntryDouble.new('foo', ContentTypeDouble.new, {'foobar' => 'bar'})])
+
+        expected = [{'sys' => {'id' => 'foo'}, 'foobar' => 'bar'}]
+        expect(subject.serialize).to eq(expected)
+      end
+
+      it 'serializes multiple entries' do
+        subject.instance_variable_set(:@entries, [
+          EntryDouble.new('foo', ContentTypeDouble.new, {'foobar' => 'bar'}),
+          EntryDouble.new('bar', ContentTypeDouble.new, {'foobar' => 'baz'})
+        ])
+
+        expected = [
+          {'sys' => {'id' => 'foo'}, 'foobar' => 'bar'},
+          {'sys' => {'id' => 'bar'}, 'foobar' => 'baz'}
+        ]
+        expect(subject.serialize).to match(expected)
+      end
+    end
+
+    it '#to_yaml' do
+      allow(subject).to receive(:serialize).and_return({'a' => 123})
+
+      expected = "---\na: 123\n"
+      expect(subject.to_yaml).to eq(expected)
+    end
+  end
+end
