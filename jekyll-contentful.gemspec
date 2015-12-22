@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require File.expand_path('../lib/jekyll-contentful/version.rb', __FILE__)
+require File.expand_path('../lib/jekyll-contentful-data-import/version.rb', __FILE__)
 
 Gem::Specification.new do |s|
-  s.name        = "jekyll-contentful"
+  s.name        = "jekyll-contentful-data-import"
   s.version     = Jekyll::Contentful::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Contentful GmbH']

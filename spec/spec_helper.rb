@@ -2,9 +2,10 @@ $LOAD_PATH.unshift File.expand_path('lib', __FILE__)
 
 require 'vcr'
 require 'yaml'
+require 'rspec'
 
 require 'jekyll'
-require File.expand_path('../../lib/jekyll-contentful.rb', __FILE__)
+require File.expand_path('../../lib/jekyll-contentful-data-import.rb', __FILE__)
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_fixtures"

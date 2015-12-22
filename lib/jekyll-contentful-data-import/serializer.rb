@@ -1,5 +1,5 @@
 require 'yaml'
-require 'jekyll-contentful/mappers'
+require 'jekyll-contentful-data-import/mappers'
 
 module Jekyll
   module Contentful

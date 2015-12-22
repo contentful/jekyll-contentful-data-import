@@ -1,8 +1,8 @@
-# Jekyll-Contentful
+# Jekyll-Contentful-Data-Import
 
 [![Build Status](https://travis-ci.com/contentful/jekyll-contentful.svg?token=Nx7fXKYs7PbM7CcY2dS1)](https://travis-ci.org/contentful/jekyll-contentful)
 
-Jekyll-Contentful is a [Jekyll](http://jekyllrb.com/) extension to use the Jekyll static site generator together with the API-driven [Contentful CMS](https://www.contentful.com). It is powered by the [Contentful Ruby Gem](https://github.com/contentful/contentful.rb).
+Jekyll-Contentful-Data-Import is a [Jekyll](http://jekyllrb.com/) extension to use the Jekyll static site generator together with the API-driven [Contentful CMS](https://www.contentful.com). It is powered by the [Contentful Ruby Gem](https://github.com/contentful/contentful.rb).
 
 Experience the power of Jekyll while staying sane as a developer by letting end-users edit content in a web-based interface.
 
@@ -12,7 +12,7 @@ Add the following line to the Gemfile of your Jekyll project:
 
 ```ruby
 group :jekyll_plugins do
-  gem "jekyll-contentful"
+  gem "jekyll-contentful-data-import"
 end
 ```
 

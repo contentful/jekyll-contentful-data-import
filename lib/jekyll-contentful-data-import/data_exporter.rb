@@ -1,4 +1,4 @@
-require 'jekyll-contentful/serializer'
+require 'jekyll-contentful-data-import/serializer'
 
 module Jekyll
   module Contentful

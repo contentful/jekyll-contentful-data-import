@@ -1,4 +1,4 @@
-require 'jekyll-contentful/importer'
+require 'jekyll-contentful-data-import/importer'
 
 module Jekyll
   module Commands

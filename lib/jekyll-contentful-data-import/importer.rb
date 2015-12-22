@@ -1,5 +1,5 @@
 require 'contentful'
-require 'jekyll-contentful/data_exporter'
+require 'jekyll-contentful-data-import/data_exporter'
 
 module Jekyll
   module Contentful
