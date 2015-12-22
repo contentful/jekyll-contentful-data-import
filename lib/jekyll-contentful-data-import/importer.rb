@@ -15,12 +15,12 @@ module Jekyll
           space_client = client(
             options['space'],
             options['access_token'],
-            options['client_options']
+            options.fetch('client_options', {})
           )
 
           Jekyll::Contentful::DataExporter.new(
             name,
-            space_client.entries(options['cda_query']),
+            space_client.entries(options.fetch('cda_query', {})),
             options
           ).run
         end

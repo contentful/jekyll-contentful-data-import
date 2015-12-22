@@ -63,11 +63,7 @@ module Jekyll
         end
 
         def map_asset(asset)
-          result = {}
-          result['title'] = asset.title
-          result['url'] = asset.file.url
-
-          result
+          {'title' => asset.title, 'url' => asset.file.url}
         end
 
         def map_entry(child)
