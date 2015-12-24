@@ -1,7 +1,11 @@
 # Change Log
 ## Unreleased
 
-## v1.0.0
+## v1.0.1
+### Changed
+* Content Type format is now as expected
+
+## v1.0.0 [YANKED]
 ### Changed
 * Content Types are separated in the Space YAML
 
