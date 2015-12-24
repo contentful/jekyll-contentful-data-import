@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## v1.0.0
 ### Changed
 * Content Types are separated in the Space YAML
 
