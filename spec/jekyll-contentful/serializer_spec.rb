@@ -23,14 +23,14 @@ describe Jekyll::Contentful::Serializer do
       end
 
       it 'serializes a single entry without fields' do
-        expected = [{'content_type' => [{'sys' => {'id' => 'foo'}}]}]
+        expected = {'content_type' => [{'sys' => {'id' => 'foo'}}]}
         expect(subject.serialize).to eq(expected)
       end
 
       it 'serializes a single entry with fields' do
         subject.instance_variable_set(:@entries, [EntryDouble.new('foo', ContentTypeDouble.new, {'foobar' => 'bar'})])
 
-        expected = [{'content_type' => [{'sys' => {'id' => 'foo'}, 'foobar' => 'bar'}]}]
+        expected = {'content_type' => [{'sys' => {'id' => 'foo'}, 'foobar' => 'bar'}]}
         expect(subject.serialize).to eq(expected)
       end
 
@@ -40,14 +40,12 @@ describe Jekyll::Contentful::Serializer do
           EntryDouble.new('bar', ContentTypeDouble.new, {'foobar' => 'baz'})
         ])
 
-        expected = [
-          {
-            'content_type' => [
-              {'sys' => {'id' => 'foo'}, 'foobar' => 'bar'},
-              {'sys' => {'id' => 'bar'}, 'foobar' => 'baz'}
-            ]
-          }
-        ]
+        expected = {
+          'content_type' => [
+            {'sys' => {'id' => 'foo'}, 'foobar' => 'bar'},
+            {'sys' => {'id' => 'bar'}, 'foobar' => 'baz'}
+          ]
+        }
         expect(subject.serialize).to match(expected)
       end
     end

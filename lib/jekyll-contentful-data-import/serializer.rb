@@ -12,13 +12,14 @@ module Jekyll
       end
 
       def serialize
-        entries.group_by { |entry| entry.content_type.id }.map do |content_type, entry_list|
-          {
-            content_type => entry_list.map do |entry|
-              ::Jekyll::Contentful::Mappers::Base.mapper_for(entry, config).map
-            end
-          }
+        result = {}
+        entries.group_by { |entry| entry.content_type.id }.each do |content_type, entry_list|
+          result[content_type] = entry_list.map do |entry|
+            ::Jekyll::Contentful::Mappers::Base.mapper_for(entry, config).map
+          end
         end
+
+        result
       end
 
       def to_yaml
