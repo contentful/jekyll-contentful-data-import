@@ -67,7 +67,7 @@ module Jekyll
         end
 
         def map_entry(child)
-          {'sys' => {'id' => child.id}}
+          self.class.mapper_for(child, config).map
         end
 
         def map_location(location)

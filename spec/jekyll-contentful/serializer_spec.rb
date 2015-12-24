@@ -34,6 +34,19 @@ describe Jekyll::Contentful::Serializer do
         expect(subject.serialize).to eq(expected)
       end
 
+      it 'serializes a nested entry like an entry' do
+        subject.instance_variable_set(:@entries, [
+          EntryDouble.new('foo', ContentTypeDouble.new, {
+            'foobar' => EntryDouble.new('foobar', ContentTypeDouble.new, {
+                'baz' => 1
+            })
+          })
+        ])
+
+        expected = {'content_type' => [{'sys' => {'id' => 'foo'}, 'foobar' => {'sys' => {'id' => 'foobar'}, 'baz' => 1}}]}
+        expect(subject.serialize).to eq(expected)
+      end
+
       it 'serializes multiple entries' do
         subject.instance_variable_set(:@entries, [
           EntryDouble.new('foo', ContentTypeDouble.new, {'foobar' => 'bar'}),
