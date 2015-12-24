@@ -92,3 +92,11 @@ class MySysMapper < ::Jekyll::Contentful::Mappers::Base
 end
 ```
 
+## Examples
+
+You can find working examples of multiple uses [here](https://github.com/contentful/contentful_jekyll_examples).
+
+## Contributing
+
+Feel free to add your own examples by submitting a Pull Request. For more information,
+please check [CONTRIBUTING.md](./CONTRIBUTING.md)
