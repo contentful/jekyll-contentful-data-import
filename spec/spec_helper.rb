@@ -27,7 +27,7 @@ end
 class ContentTypeDouble
   attr_reader :id
 
-  def initialize(id = '')
+  def initialize(id = 'content_type')
     @id = id
   end
 end

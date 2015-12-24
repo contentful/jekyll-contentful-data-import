@@ -12,8 +12,12 @@ module Jekyll
       end
 
       def serialize
-        entries.map do |entry|
-          ::Jekyll::Contentful::Mappers::Base.mapper_for(entry, config).map
+        entries.group_by { |entry| entry.content_type.id }.map do |content_type, entry_list|
+          {
+            content_type => entry_list.map do |entry|
+              ::Jekyll::Contentful::Mappers::Base.mapper_for(entry, config).map
+            end
+          }
         end
       end
 
