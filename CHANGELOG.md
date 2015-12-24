@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## v1.1.0
 ### Added
 * Nested Entries are now serialized completely
 
