@@ -70,7 +70,7 @@ data folder. If a custom mapper is not specified a default one will be used.
 
 The default mapper will map fields, assets and linked entries.
 
-### Custom mappers
+### Custom Mappers
 
 You can create your own mappers if you need so. The only requirement for a class to behave as a
 mapper is to have a `map` instance method.
@@ -91,6 +91,24 @@ class MySysMapper < ::Jekyll::Contentful::Mappers::Base
   end
 end
 ```
+
+#### Caveats
+
+Jekyll itself only allows to import code as plugins only for it's recognized plugin entry points.
+Therefore we need to use a custom [Rakefile](https://github.com/contentful/contentful_jekyll_examples/blob/master/examples/custom_mapper/example/Rakefile) to import the mapper and required files:
+
+```ruby
+require 'jekyll'
+require 'jekyll-contentful-data-import'
+require './_plugins/mappers'
+
+desc "Import Contentful Data with Custom Mappers"
+task :contentful do
+  Jekyll::Commands::Contentful.process([], {}, Jekyll.configuration['contentful'])
+end
+```
+
+Then proceed to run: `bundle exec rake contentful`
 
 ## Examples
 
