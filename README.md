@@ -1,6 +1,6 @@
 # Jekyll-Contentful-Data-Import
 
-[![Build Status](https://travis-ci.com/contentful/jekyll-contentful.svg?token=Nx7fXKYs7PbM7CcY2dS1)](https://travis-ci.org/contentful/jekyll-contentful)
+[![Build Status](https://travis-ci.org/contentful/jekyll-contentful-data-import.svg?branch=master)](https://travis-ci.org/contentful/jekyll-contentful-data-import)
 
 Jekyll-Contentful-Data-Import is a [Jekyll](http://jekyllrb.com/) extension to use the Jekyll static site generator together with the API-driven [Contentful CMS](https://www.contentful.com). It is powered by the [Contentful Ruby Gem](https://github.com/contentful/contentful.rb).
 
@@ -51,6 +51,8 @@ contentful:
           :preview: false
           :raise_errors: true
           :dynamic_entries: :auto
+        base_path: app_path        # Optional - Defaults to Current directory
+
 ```
 
 Parameter           | Description
@@ -60,6 +62,7 @@ access_token        | Contentful Delivery API access token
 cda_query           | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there). Note that by default only 100 entries will be fetched, this can be configured to up to 1000 entries using the `limit` option.
 content_types       | Hash describing the mapping applied to entries of the imported content types
 client_options      | Hash describing Contentful::Client configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info.
+base_path           | String with path to your Jekyll Application, defaults to current directory. Path is relative to your current location.
 
 You can add multiple spaces to your configuration
 

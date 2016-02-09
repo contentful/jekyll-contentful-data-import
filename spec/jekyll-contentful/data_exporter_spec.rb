@@ -5,22 +5,62 @@ describe Jekyll::Contentful::DataExporter do
   subject { described_class.new('foo', []) }
 
   describe 'instance methods' do
-    it '#destination_directory' do
-      expected = File.join(Dir.pwd, '_data', 'contentful', 'spaces')
-      expect(subject.destination_directory).to eq(expected)
+    describe '#base_directory' do
+      it 'default directory' do
+        expect(subject.base_directory).to eq(Dir.pwd)
+      end
+
+      it 'overriden directory' do
+        subject = described_class.new('foo', [], {'base_path' => 'foo_dir'})
+
+        expect(subject.base_directory).to eq(File.join(Dir.pwd, 'foo_dir'))
+      end
     end
 
-    it '#destination_file' do
-      expected = File.join(Dir.pwd, '_data', 'contentful', 'spaces', 'foo.yaml')
-      expect(subject.destination_file).to eq(expected)
+    describe '#destination_directory' do
+      it 'default directory' do
+        expected = File.join(Dir.pwd, '_data', 'contentful', 'spaces')
+        expect(subject.destination_directory).to eq(expected)
+      end
+
+      it 'overriden directory' do
+        subject = described_class.new('foo', [], {'base_path' => 'foo_dir'})
+
+        expected = File.join(Dir.pwd, 'foo_dir', '_data', 'contentful', 'spaces')
+        expect(subject.destination_directory).to eq(expected)
+      end
     end
 
-    it '#setup_directory' do
-      expect(Dir).to receive(:mkdir).with(File.join(Dir.pwd, '_data'))
-      expect(Dir).to receive(:mkdir).with(File.join(Dir.pwd, '_data', 'contentful'))
-      expect(Dir).to receive(:mkdir).with(File.join(Dir.pwd, '_data', 'contentful', 'spaces'))
+    describe '#destination_file' do
+      it 'default directory' do
+        expected = File.join(Dir.pwd, '_data', 'contentful', 'spaces', 'foo.yaml')
+        expect(subject.destination_file).to eq(expected)
+      end
 
-      subject.setup_directory
+      it 'overridden directory' do
+        subject = described_class.new('foo', [], {'base_path' => 'foo_dir'})
+
+        expected = File.join(Dir.pwd, 'foo_dir', '_data', 'contentful', 'spaces', 'foo.yaml')
+        expect(subject.destination_file).to eq(expected)
+      end
+    end
+
+    describe '#setup_directory' do
+      it 'default directory' do
+        expected = File.join(Dir.pwd, '_data', 'contentful', 'spaces')
+        expect(FileUtils).to receive(:mkdir_p).with(expected)
+
+        subject.setup_directory
+      end
+
+      it 'overridden directory' do
+        subject = described_class.new('foo', [], {'base_path' => 'foo_dir'})
+
+        expected = File.join(Dir.pwd, 'foo_dir', '_data', 'contentful', 'spaces')
+        expect(FileUtils).to receive(:mkdir_p).with(expected)
+
+        subject.setup_directory
+      end
     end
 
     describe '#run' do

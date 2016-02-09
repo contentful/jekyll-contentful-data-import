@@ -23,8 +23,14 @@ module Jekyll
         end
       end
 
+      def base_directory
+        directory = File.expand_path(Dir.pwd)
+        directory = File.join(directory, config['base_path']) if config.key?('base_path')
+
+        directory
+      end
+
       def destination_directory
-        base_directory = File.expand_path(Dir.pwd)
         File.join(base_directory, DATA_FOLDER, CONTENTFUL_FOLDER, SPACES_FOLDER)
       end
 
@@ -33,14 +39,7 @@ module Jekyll
       end
 
       def setup_directory
-        data_folder = File.join(Dir.pwd, DATA_FOLDER)
-        Dir.mkdir(data_folder) unless Dir.exist?(data_folder)
-
-        contentful_folder = File.join(data_folder, CONTENTFUL_FOLDER)
-        Dir.mkdir(contentful_folder) unless Dir.exist?(contentful_folder)
-
-        spaces_folder = File.join(contentful_folder, SPACES_FOLDER)
-        Dir.mkdir(spaces_folder) unless Dir.exist?(spaces_folder)
+        FileUtils.mkdir_p destination_directory
       end
     end
   end

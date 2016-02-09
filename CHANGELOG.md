@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+### Added
+* Customizable Data Path [#1](https://github.com/contentful/jekyll-contentful-data-import/issues/1)
 
 ## v1.1.0
 ### Added
