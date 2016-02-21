@@ -43,7 +43,7 @@ contentful:
   spaces:
     - example: # Jekyll _data folder identifier - Required
         space: cfexampleapi        # Required
-        access_token: b4c0n73n7fu1 # Required
+        access_token: b4c0n73n7fu1 # Required - 'Space ID'
         cda_query:                 # Optional
           include: 2
           limit: 100
