@@ -99,7 +99,7 @@ end
 
 #### Caveats
 
-Jekyll itself only allows to import code as plugins only for it's recognized plugin entry points.
+Jekyll itself only allows you to import code as plugins only for its recognized plugin entry points.
 Therefore we need to use a custom [Rakefile](https://github.com/contentful/contentful_jekyll_examples/blob/master/examples/custom_mapper/example/Rakefile) to import the mapper and required files:
 
 ```ruby
