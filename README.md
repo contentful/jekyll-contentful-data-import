@@ -6,11 +6,13 @@ Jekyll-Contentful-Data-Import is a [Jekyll](http://jekyllrb.com/) extension to u
 
 Experience the power of Jekyll while staying sane as a developer by letting end-users edit content in a web-based interface.
 
-
 ## Installation
-Add the following line to the Gemfile of your Jekyll project:
+
+Create a Gemfile in your Jekyll project and add the following:
 
 ```ruby
+source 'https://rubygems.org'
+
 group :jekyll_plugins do
   gem "jekyll-contentful-data-import"
 end
