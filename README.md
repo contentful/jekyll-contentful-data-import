@@ -77,7 +77,7 @@ The default mapper will map fields, assets and linked entries.
 
 ### Custom Mappers
 
-You can create your own mappers if you need so. The only requirement for a class to behave as a
+You can create your own mappers if you need to. The only requirement for a class to behave as a
 mapper is to have a `map` instance method.
 
 Following is an example of such custom mapper that adds all `sys` properties to the entry:
