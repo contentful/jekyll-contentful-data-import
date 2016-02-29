@@ -6,11 +6,13 @@ Jekyll-Contentful-Data-Import is a [Jekyll](http://jekyllrb.com/) extension to u
 
 Experience the power of Jekyll while staying sane as a developer by letting end-users edit content in a web-based interface.
 
-
 ## Installation
-Add the following line to the Gemfile of your Jekyll project:
+
+Create a Gemfile in your Jekyll project and add the following:
 
 ```ruby
+source 'https://rubygems.org'
+
 group :jekyll_plugins do
   gem "jekyll-contentful-data-import"
 end
@@ -75,7 +77,7 @@ The default mapper will map fields, assets and linked entries.
 
 ### Custom Mappers
 
-You can create your own mappers if you need so. The only requirement for a class to behave as a
+You can create your own mappers if you need to. The only requirement for a class to behave as a
 mapper is to have a `map` instance method.
 
 Following is an example of such custom mapper that adds all `sys` properties to the entry:
@@ -97,7 +99,7 @@ end
 
 #### Caveats
 
-Jekyll itself only allows to import code as plugins only for it's recognized plugin entry points.
+Jekyll itself only allows you to import code as plugins only for its recognized plugin entry points.
 Therefore we need to use a custom [Rakefile](https://github.com/contentful/contentful_jekyll_examples/blob/master/examples/custom_mapper/example/Rakefile) to import the mapper and required files:
 
 ```ruby
