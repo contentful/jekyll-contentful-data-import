@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## v1.2.1
 ### Fixed
 * README showing incorrect configuration [#5](https://github.com/contentful/jekyll-contentful-data-import/issues/5)
 * `client_options` being incorrectly parsed and allowing overriding parameters that should be fixed
