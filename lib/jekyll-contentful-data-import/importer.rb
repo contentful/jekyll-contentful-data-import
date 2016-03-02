@@ -15,7 +15,7 @@ module Jekyll
           space_client = client(
             options['space'],
             options['access_token'],
-            options.fetch('client_options', {})
+            client_options(options.fetch('client_options', {}))
           )
 
           Jekyll::Contentful::DataExporter.new(
@@ -39,6 +39,15 @@ module Jekyll
         }.merge(options)
 
         ::Contentful::Client.new(options)
+      end
+
+      private
+
+      def client_options(options)
+        options = options.each_with_object({}){|(k,v), memo| memo[k.to_sym] = v; memo}
+        options.delete(:dynamic_entries)
+        options.delete(:raise_errors)
+        options
       end
     end
   end
