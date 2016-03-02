@@ -50,9 +50,7 @@ contentful:
         content_types:             # Optional
           cat: MyCoolMapper
         client_options:            # Optional
-          :preview: false
-          :raise_errors: true
-          :dynamic_entries: :auto
+          api_url: 'preview.contentful.com' # Defaults to 'api.contentful.com' which is Production
         base_path: app_path        # Optional - Defaults to Current directory
 
 ```
