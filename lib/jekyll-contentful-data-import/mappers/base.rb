@@ -71,7 +71,7 @@ module Jekyll
         end
 
         def map_location(location)
-          location.properties
+          {'lat' => location.lat, 'lon' => location.lon}
         end
 
         def map_link(link)
