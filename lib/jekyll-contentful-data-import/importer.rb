@@ -21,6 +21,7 @@ module Jekyll
           Jekyll::Contentful::DataExporter.new(
             name,
             space_client.entries(options.fetch('cda_query', {})),
+            space_client.content_types(options.fetch('cda_query', {})),
             options
           ).run
         end

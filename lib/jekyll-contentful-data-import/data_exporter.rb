@@ -7,11 +7,12 @@ module Jekyll
       CONTENTFUL_FOLDER = 'contentful'
       SPACES_FOLDER = 'spaces'
 
-      attr_reader :name, :entries, :config
+      attr_reader :name, :entries, :content_types, :config
 
-      def initialize(name, entries, config = {})
+      def initialize(name, entries, content_types, config = {})
         @name = name
         @entries = entries
+        @content_types = content_types
         @config = config
       end
 
@@ -19,7 +20,7 @@ module Jekyll
         setup_directory
 
         File.open(destination_file, 'w') do |file|
-          file.write(::Jekyll::Contentful::Serializer.new(entries, config).to_yaml)
+          file.write(::Jekyll::Contentful::Serializer.new(entries, content_types, config).to_yaml)
         end
       end
 
