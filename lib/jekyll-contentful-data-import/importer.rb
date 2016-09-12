@@ -20,7 +20,7 @@ module Jekyll
 
           Jekyll::Contentful::DataExporter.new(
             name,
-            space_client.entries(options.fetch('cda_query', {})),
+            get_entries(space_client, options),
             options
           ).run
         end
@@ -34,6 +34,26 @@ module Jekyll
 
       def spaces
         config['spaces'].map { |space_data| space_data.first }
+      end
+
+      def get_entries(space_client, options)
+        cda_query = options.fetch('cda_query', {})
+        return space_client.entries(cda_query) unless options.fetch('all_entries', false)
+
+        all = []
+        query = cda_query.clone
+        query[:order] = 'sys.createdAt' unless query.key?(:order)
+        num_entries = space_client.entries(limit: 1).total
+
+        page_size = options.fetch('all_entries_page_size', 1000)
+        ((num_entries / page_size) + 1).times do |i|
+          query[:limit] = page_size
+          query[:skip] = i * page_size
+          page = space_client.entries(query)
+          page.each { |entry| all << entry }
+        end
+
+        all
       end
 
       def client(space, access_token, options = {})
