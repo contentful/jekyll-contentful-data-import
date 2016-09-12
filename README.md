@@ -95,6 +95,27 @@ class MySysMapper < ::Jekyll::Contentful::Mappers::Base
 end
 ```
 
+### Hiding Space and Access Token in Public Repositories
+
+In most cases you may want to avoid including your credentials in publicly available sites,
+therefore you can hide your `space` and `access_token` by replacing them with `ENV_` prepended variables.
+
+This will look for the values in your system.
+
+For example:
+
+```yaml
+contentful:
+  spaces:
+    - example:
+        space: ENV_CONTENTFUL_SPACE_ID
+        access_token: ENV_CONTENTFUL_ACCESS_TOKEN
+```
+
+With this setup, your Space ID will be looked upon on `ENV['CONTENTFUL_SPACE_ID']` and your Access Token
+on `ENV['CONTENTFUL_ACCESS_TOKEN']`. This way it is safe to share your code, without having to worry
+about your credentials.
+
 #### Caveats
 
 Jekyll itself only allows you to import code as plugins only for its recognized plugin entry points.

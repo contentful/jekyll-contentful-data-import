@@ -13,8 +13,8 @@ module Jekyll
       def run
         spaces.each do |name, options|
           space_client = client(
-            options['space'],
-            options['access_token'],
+            value_for(options, 'space'),
+            value_for(options, 'access_token'),
             client_options(options.fetch('client_options', {}))
           )
 
@@ -24,6 +24,12 @@ module Jekyll
             options
           ).run
         end
+      end
+
+      def value_for(options, key)
+        potential_value = options[key]
+        return ENV[potential_value.gsub('ENV_', '')] if potential_value.start_with?('ENV_')
+        potential_value
       end
 
       def spaces
