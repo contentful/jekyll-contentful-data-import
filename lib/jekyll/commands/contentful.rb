@@ -8,7 +8,7 @@ module Jekyll
           c.syntax 'contentful [OPTIONS]'
           c.description 'Imports data from Contentful'
 
-          options.each {|opt| c.option *opt }
+          options.each {|opt| c.option(*opt) }
 
           c.action do |args, options|
             contentful_config = Jekyll.configuration['contentful']

@@ -3,6 +3,8 @@
 ## Unreleased
 ### Added
 * Added the possibility to use `space` and `access_token` from environment variables [#14](https://github.com/contentful/jekyll-contentful-data-import/issues/14)
+* `all_entries` option to fetch entries over the 1000 limit of a single CDA request
+* `all_entries_page_size` option to customize the size of the request for particularly heavy entries
 
 ## v1.2.1
 ### Fixed

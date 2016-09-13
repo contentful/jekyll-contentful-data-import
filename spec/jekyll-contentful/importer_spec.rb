@@ -1,8 +1,18 @@
 require 'spec_helper'
 
+class EntryArrayDouble < ::Array
+  def total
+    size
+  end
+end
+
 class ClientDouble
+  def initialize(response = EntryArrayDouble.new)
+    @response = response
+  end
+
   def entries(options = {})
-    []
+    @response
   end
 end
 
@@ -71,6 +81,29 @@ describe Jekyll::Contentful::Importer do
         expect(Jekyll::Contentful::DataExporter).to receive(:new).with('example', [], config['spaces'].first['example']).and_return(ExporterDouble.new)
 
         subject.run
+      end
+    end
+
+    describe '#get_entries' do
+      it 'runs a single query by default' do
+        client = ClientDouble.new
+        expect(client).to receive(:entries).once
+
+        subject.get_entries(client, {})
+      end
+
+      it 'fetches all entries when all_entries is set' do
+        client = ClientDouble.new(EntryArrayDouble.new([1, 2, 3]))
+        expect(client).to receive(:entries).and_call_original.twice
+
+        subject.get_entries(client, {'all_entries' => true})
+      end
+
+      it 'can select page size when all_entries by using all_entries_page_size' do
+        client = ClientDouble.new(EntryArrayDouble.new([1, 2, 3]))
+        expect(client).to receive(:entries).and_call_original.exactly(3).times
+
+        subject.get_entries(client, {'all_entries' => true, 'all_entries_page_size' => 2})
       end
     end
   end
