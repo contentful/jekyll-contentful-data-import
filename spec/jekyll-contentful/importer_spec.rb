@@ -44,9 +44,20 @@ describe Jekyll::Contentful::Importer do
       end
     end
 
+    describe '#value_for' do
+      it 'returns set value regularly' do
+        expect(subject.value_for({'foo' => 'bar'}, 'foo')).to eq 'bar'
+      end
+
+      it 'returns ENV value if prefixed with ENV_' do
+        ENV['bar'] = 'bar_from_env'
+        expect(subject.value_for({'foo' => 'ENV_bar'}, 'foo')).to eq 'bar_from_env'
+      end
+    end
+
     describe '#run' do
       it 'runs exporter for each space' do
-        allow(subject).to receive(:spaces).and_return([['foo', {}], ['bar', {}]])
+        allow(subject).to receive(:spaces).and_return([['foo', {'space' => 'foo', 'access_token' => 'bar'}], ['bar', {'space' => 'bar', 'access_token' => 'foo'}]])
         allow(subject).to receive(:client).and_return(ClientDouble.new)
 
         expect(Jekyll::Contentful::DataExporter).to receive(:new).and_return(ExporterDouble.new).twice
