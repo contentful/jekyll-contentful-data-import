@@ -49,6 +49,7 @@ contentful:
           limit: 100
         all_entries: true           # Optional - Defaults to false, only grabbing the amount set on CDA Query
         all_entries_page_size: 1000 # Optional - Defaults to 1000, maximum amount of entries per CDA Request for all_entries
+        multiple_files: true        # Optional - Defaults to false, split up data by content type
         content_types:              # Optional
           cat: MyCoolMapper
         client_options:             # Optional
@@ -64,6 +65,7 @@ access_token          | Contentful Delivery API access token
 cda_query             | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there). Note that by default only 100 entries will be fetched, this can be configured to up to 1000 entries using the `limit` option.
 all_entries           | Boolean, if true will run multiple queries to the API until it fetches all entries for the space
 all_entries_page_size | Integer, the amount of maximum entries per CDA Request when fetching :all_entries
+multiple_files:       | Boolean, if true will split up the data into one file per content type
 content_types         | Hash describing the mapping applied to entries of the imported content types
 client_options        | Hash describing Contentful::Client configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info.
 base_path             | String with path to your Jekyll Application, defaults to current directory. Path is relative to your current location.

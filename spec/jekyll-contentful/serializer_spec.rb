@@ -63,11 +63,5 @@ describe Jekyll::Contentful::Serializer do
       end
     end
 
-    it '#to_yaml' do
-      allow(subject).to receive(:serialize).and_return({'a' => 123})
-
-      expected = "---\na: 123\n"
-      expect(subject.to_yaml).to eq(expected)
-    end
   end
 end

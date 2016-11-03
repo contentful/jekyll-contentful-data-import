@@ -75,7 +75,7 @@ describe Jekyll::Contentful::DataExporter do
 
       it 'serializes entries onto data file' do
         allow(File).to receive(:open).and_yield(StringIO.new)
-        expect_any_instance_of(::Jekyll::Contentful::Serializer).to receive(:to_yaml)
+        expect(YAML).to receive(:dump)
 
         subject.run
       end
