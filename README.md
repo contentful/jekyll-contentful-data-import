@@ -99,27 +99,6 @@ class MySysMapper < ::Jekyll::Contentful::Mappers::Base
 end
 ```
 
-### Hiding Space and Access Token in Public Repositories
-
-In most cases you may want to avoid including your credentials in publicly available sites,
-therefore you can hide your `space` and `access_token` by replacing them with `ENV_` prepended variables.
-
-This will look for the values in your system.
-
-For example:
-
-```yaml
-contentful:
-  spaces:
-    - example:
-        space: ENV_CONTENTFUL_SPACE_ID
-        access_token: ENV_CONTENTFUL_ACCESS_TOKEN
-```
-
-With this setup, your Space ID will be looked upon on `ENV['CONTENTFUL_SPACE_ID']` and your Access Token
-on `ENV['CONTENTFUL_ACCESS_TOKEN']`. This way it is safe to share your code, without having to worry
-about your credentials.
-
 #### Caveats
 
 Jekyll itself only allows you to import code as plugins only for its recognized plugin entry points.
@@ -137,6 +116,43 @@ end
 ```
 
 Then proceed to run: `bundle exec rake contentful`
+
+### Hiding Space and Access Token in Public Repositories
+
+In most cases you may want to avoid including your credentials in publicly available sites,
+therefore you can do the following:
+
+1. `bundle update`—make sure your gem version supports ENV_ variables
+
+2. Set up your _config like so:
+
+   ```
+   contentful:
+     spaces:
+       - example:
+           space:        ENV_CONTENTFUL_SPACE_ID
+           access_token: ENV_CONTENTFUL_ACCESS_TOKEN
+   ```
+   (Your Space ID will be looked upon on `ENV['CONTENTFUL_SPACE_ID']` and your Access Token
+   on `ENV['CONTENTFUL_ACCESS_TOKEN']`.)
+
+3. Either add the following variables to your shell's configuration file (.bashrc or .bash_profile, for example):
+
+   ```
+   export CONTENTFUL_ACCESS_TOKEN=abc123
+   export CONTENTFUL_SPACE_ID=abc123
+   ```
+   (And run `source ~/.bashrc` or open new terminal to enable changes.)
+
+   Or specify them on the command line:
+
+   ```
+   CONTENTFUL_ACCESS_TOKEN=abc123 CONTENTFUL_SPACE_ID=abc123 jekyll contentful
+   ```
+4. Party.
+
+This way, it is safe to share your code without having to worry
+about your credentials.
 
 ## Examples
 
