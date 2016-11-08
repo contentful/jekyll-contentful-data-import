@@ -126,7 +126,7 @@ therefore you can do the following:
 
 2. Set up your _config like so:
 
-   ```
+   ```yaml
    contentful:
      spaces:
        - example:
@@ -138,7 +138,7 @@ therefore you can do the following:
 
 3. Either add the following variables to your shell's configuration file (.bashrc or .bash_profile, for example):
 
-   ```
+   ```bash
    export CONTENTFUL_ACCESS_TOKEN=abc123
    export CONTENTFUL_SPACE_ID=abc123
    ```
@@ -146,7 +146,7 @@ therefore you can do the following:
 
    Or specify them on the command line:
 
-   ```
+   ```bash
    CONTENTFUL_ACCESS_TOKEN=abc123 CONTENTFUL_SPACE_ID=abc123 jekyll contentful
    ```
 4. Party.
