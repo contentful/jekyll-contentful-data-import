@@ -31,7 +31,10 @@ module Jekyll
       end
 
       def destination_directory
-        File.join(base_directory, DATA_FOLDER, CONTENTFUL_FOLDER, SPACES_FOLDER)
+        destination_dir = File.join(base_directory, DATA_FOLDER, CONTENTFUL_FOLDER, SPACES_FOLDER)
+        destination_dir = File.join(base_directory, DATA_FOLDER, config['dest']) if config.key?('dest')
+
+        destination_dir
       end
 
       def destination_file
