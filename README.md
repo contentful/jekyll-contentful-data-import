@@ -54,7 +54,7 @@ contentful:
         client_options:             # Optional
           api_url: 'preview.contentful.com' # Defaults to 'api.contentful.com' which is Production
         base_path: app_path         # Optional - Defaults to Current directory
-
+        destination: destination_in_data # Optional - Defaults to _data/contentful/spaces/{space}
 ```
 
 Parameter             | Description
@@ -67,6 +67,7 @@ all_entries_page_size | Integer, the amount of maximum entries per CDA Request w
 content_types         | Hash describing the mapping applied to entries of the imported content types
 client_options        | Hash describing Contentful::Client configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info.
 base_path             | String with path to your Jekyll Application, defaults to current directory. Path is relative to your current location.
+destination           | String with path within _data under which to store the output yaml file. Defaults to contentful/spaces/{_data folder identifier}
 
 You can add multiple spaces to your configuration
 
