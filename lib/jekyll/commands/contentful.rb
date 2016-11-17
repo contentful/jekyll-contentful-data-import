@@ -10,6 +10,8 @@ module Jekyll
 
           options.each {|opt| c.option(*opt) }
 
+          add_build_options(c)
+
           c.action do |args, options|
             jekyll_options = configuration_from_options(options)
             contentful_config = jekyll_options['contentful']
@@ -21,7 +23,6 @@ module Jekyll
       def self.options
         [
           ['rebuild', '-r', '--rebuild', 'Rebuild Jekyll Site after fetching data'],
-          ['config', '--config CONFIG_FILE[,CONFIG_FILE2,...]', Array, "Custom configuration file"]
         ]
       end
 
