@@ -32,7 +32,7 @@ module Jekyll
 
       def destination_directory
         destination_dir = File.join(base_directory, DATA_FOLDER, CONTENTFUL_FOLDER, SPACES_FOLDER)
-        destination_dir = File.join(base_directory, DATA_FOLDER, config['dest']) if config.key?('dest')
+        destination_dir = File.join(base_directory, DATA_FOLDER, config['destination']) if config.key?('destination')
 
         destination_dir
       end
