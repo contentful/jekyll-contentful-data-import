@@ -54,7 +54,7 @@ contentful:
         client_options:             # Optional
           api_url: 'preview.contentful.com' # Defaults to 'api.contentful.com' which is Production
         base_path: app_path         # Optional - Defaults to Current directory
-        destination: destination_in_data # Optional - Defaults to _data/contentful/spaces/{space}
+        destination: destination_in_data # Optional - Defaults to _data/contentful/spaces/{_data folder identifier}
 ```
 
 Parameter             | Description
