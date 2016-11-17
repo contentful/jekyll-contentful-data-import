@@ -43,6 +43,13 @@ describe Jekyll::Contentful::DataExporter do
         expected = File.join(Dir.pwd, 'foo_dir', '_data', 'contentful', 'spaces', 'foo.yaml')
         expect(subject.destination_file).to eq(expected)
       end
+
+      it 'overridden destination' do
+        subject = described_class.new('foo', [], {'base_path' => 'foo_dir', 'destination' => 'bar_path'})
+
+        expected = File.join(Dir.pwd, 'foo_dir', '_data', 'bar_path', 'foo.yaml')
+        expect(subject.destination_file).to eq(expected)
+      end
     end
 
     describe '#setup_directory' do
