@@ -24,9 +24,9 @@ describe Jekyll::Contentful::DataExporter do
       end
 
       it 'overriden directory' do
-        subject = described_class.new('foo', [], {'base_path' => 'foo_dir', 'dest' => 'bar_dir'})
+        subject = described_class.new('foo', [], {'base_path' => 'foo_dir'})
 
-        expected = File.join(Dir.pwd, 'foo_dir', '_data', 'bar_dir')
+        expected = File.join(Dir.pwd, 'foo_dir', '_data', 'contentful', 'spaces')
         expect(subject.destination_directory).to eq(expected)
       end
     end
@@ -41,6 +41,13 @@ describe Jekyll::Contentful::DataExporter do
         subject = described_class.new('foo', [], {'base_path' => 'foo_dir'})
 
         expected = File.join(Dir.pwd, 'foo_dir', '_data', 'contentful', 'spaces', 'foo.yaml')
+        expect(subject.destination_file).to eq(expected)
+      end
+
+      it 'overridden destination' do
+        subject = described_class.new('foo', [], {'base_path' => 'foo_dir', 'destination' => 'bar_path'})
+
+        expected = File.join(Dir.pwd, 'foo_dir', '_data', 'bar_path', 'foo.yaml')
         expect(subject.destination_file).to eq(expected)
       end
     end
