@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## v1.4.0
 ### Fixed
 * Fix Locale support [#29](https://github.com/contentful/jekyll-contentful-data-import/issues/29)
 
