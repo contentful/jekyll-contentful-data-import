@@ -7,6 +7,11 @@ require 'rspec'
 require 'jekyll'
 require File.expand_path('../../lib/jekyll-contentful-data-import.rb', __FILE__)
 
+RSpec.configure do |config|
+  config.filter_run :focus => true
+  config.run_all_when_everything_filtered = true
+end
+
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_fixtures"
   config.hook_into :webmock
@@ -33,12 +38,21 @@ class ContentTypeDouble
 end
 
 class EntryDouble < Contentful::DynamicEntry
-  attr_reader :id, :content_type, :fields
+  attr_reader :id, :content_type
 
-  def initialize(id = '', content_type = ContentTypeDouble.new, fields = {})
+  def initialize(id = '', content_type = ContentTypeDouble.new, fields = {}, locales = false)
     @id = id
     @content_type = content_type
-    @fields = fields
+
+    if locales
+      @fields = fields
+    else
+      @fields = { 'en-US' => fields }
+    end
+  end
+
+  def locale
+    'en-US'
   end
 end
 

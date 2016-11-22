@@ -37,7 +37,7 @@ module Jekyll
         end
 
         def has_multiple_locales?
-          config.fetch('cda_query', {}).fetch(:locale, nil) == '*'
+          config.fetch('cda_query', {}).fetch('locale', nil) == '*'
         end
 
         def map_field(field_name, field_value)
@@ -57,6 +57,14 @@ module Jekyll
             map_entry(value)
           when ::Array
             map_array(value)
+          when ::Symbol
+            value.to_s
+          when ::Hash
+            result = {}
+            value.each do |k, v|
+              result[k.to_s] = map_value(v)
+            end
+            result
           else
             value
           end
