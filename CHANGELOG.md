@@ -1,6 +1,11 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fix Locale support [#29](https://github.com/contentful/jekyll-contentful-data-import/issues/29)
+
+### Added
+* Allow override destination directory using the `destination` key in the configuration [#27](https://github.com/contentful/jekyll-contentful-data-import/pull/27)
 
 ## v1.3.0
 ### Added

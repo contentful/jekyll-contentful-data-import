@@ -106,4 +106,28 @@ describe Jekyll::Contentful::Mappers::Base do
       end
     end
   end
+
+  describe 'issues' do
+    describe '#29 - Fix localized entries' do
+      it 'should properly serialize a localized entry' do
+        config = {'cda_query' => { 'locale' => '*' } }
+        fields = {
+          'en-US' => { 'foo' => 'bar' },
+          'de-DE' => { 'foo' => 'baz' }
+        }
+        entry = EntryDouble.new('foo', ContentTypeDouble.new, fields, true)
+        mapper = described_class.new(entry, config)
+
+        expected = {
+          'sys' => { 'id' => 'foo' },
+          'foo' => {
+            'en-US' => 'bar',
+            'de-DE' => 'baz'
+          }
+        }
+
+        expect(mapper.map).to match expected
+      end
+    end
+  end
 end
