@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## v1.4.1
 ### Changed
 * Changed `Location` fields to use strings as keys instead of symbols to make it consistent with the rest of the serialization
 * Updated Contentful dependency to `~> 1.0`, which fixes localized includes
