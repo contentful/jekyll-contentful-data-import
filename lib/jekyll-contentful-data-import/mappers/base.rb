@@ -79,7 +79,11 @@ module Jekyll
         end
 
         def map_location(location)
-          location.properties
+          result = {}
+          location.properties.each do |k, v|
+            result[k.to_s] = v
+          end
+          result
         end
 
         def map_link(link)
