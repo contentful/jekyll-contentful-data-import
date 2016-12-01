@@ -71,7 +71,8 @@ module Jekyll
         end
 
         def map_asset(asset)
-          {'title' => asset.title, 'url' => asset.file.url}
+          url = asset.file.nil? ? nil : asset.file.url
+          {'title' => asset.title, 'url' => url}
         end
 
         def map_entry(child)
