@@ -33,10 +33,25 @@ describe Jekyll::Contentful::Mappers::Base do
       end
 
       class AssetDouble < Contentful::Asset
-        attr_reader :title, :file
-        def initialize(title, url)
+        attr_reader :title, :description, :file
+        def initialize(title, description, url, fields = nil)
           @title = title
+          @description = description
           @file = FileDouble.new(url)
+          @fields = {
+            'en-US' => {
+              title: title,
+              description: description,
+              file: file
+            }
+          } if fields.nil?
+
+          @fields ||= fields
+        end
+
+        def fields(locale = nil)
+          return { title: title, description: description, file: file } if locale.nil?
+          @fields[locale]
         end
       end
 
@@ -66,7 +81,7 @@ describe Jekyll::Contentful::Mappers::Base do
 
       it 'maps a complete entry' do
         entry = EntryDouble.new('foo', ContentTypeDouble.new, {
-          'asset' => AssetDouble.new('some_title', 'some_url'),
+          'asset' => AssetDouble.new('some_title', 'foo', 'some_url'),
           'location' => LocationDouble.new(12.32, 43.34),
           'link' => LinkDouble.new('bar'),
           'entry' => EntryDouble.new('baz'),
@@ -83,6 +98,7 @@ describe Jekyll::Contentful::Mappers::Base do
           'sys' => { 'id' => 'foo' },
           'asset' => {
             'title' => 'some_title',
+            'description' => 'foo',
             'url' => 'some_url'
           },
           'location' => {
@@ -123,6 +139,46 @@ describe Jekyll::Contentful::Mappers::Base do
           'foo' => {
             'en-US' => 'bar',
             'de-DE' => 'baz'
+          }
+        }
+
+        expect(mapper.map).to match expected
+      end
+    end
+
+    describe '#29 - Assets should pull the correct locale if the field is localized' do
+      it 'should fetch the correct locale for the asset' do
+        config = {'cda_query' => { 'locale' => '*' } }
+        fields = {
+          'en-US' => {
+            'asset' => AssetDouble.new('some_title', 'foo', 'some_url')
+          },
+          'de-DE' => {
+            'asset' => AssetDouble.new('some_title', 'foo', 'some_url', {
+                'de-DE' => {
+                  title: 'other_title',
+                  description: 'other description',
+                  file: FileDouble.new('other_url')
+                }
+            })
+          }
+        }
+        entry = EntryDouble.new('foo', ContentTypeDouble.new, fields, true)
+        mapper = described_class.new(entry, config)
+
+        expected = {
+          'sys' => { 'id' => 'foo' },
+          'asset' => {
+            "en-US" => {
+              "title" => "some_title",
+              "description" => "foo",
+              "url" => 'some_url'
+            },
+            "de-DE" => {
+              "title" => "other_title",
+              "description" => "other description",
+              "url" => 'other_url'
+            }
           }
         }
 
