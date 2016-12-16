@@ -29,7 +29,7 @@ module Jekyll
           fields = has_multiple_locales? ? entry.fields_with_locales : entry.fields
 
           fields.each do |k, v|
-            name, value = map_field k, v
+            name, value = map_field(k, v)
             result[name] = value
           end
 
@@ -41,14 +41,24 @@ module Jekyll
         end
 
         def map_field(field_name, field_value)
-          value_mapping = map_value(field_value)
+          value_mapping = nil
+
+          if has_multiple_locales?
+            value_mapping = {}
+            field_value.each do |locale, value|
+              value_mapping[locale.to_s] = map_value(value, locale.to_s)
+            end
+          else
+            value_mapping = map_value(field_value)
+          end
+
           return field_name.to_s, value_mapping
         end
 
-        def map_value(value)
+        def map_value(value, locale = nil)
           case value
           when ::Contentful::Asset
-            map_asset(value)
+            map_asset(value, locale)
           when ::Contentful::Location
             map_location(value)
           when ::Contentful::Link
@@ -56,13 +66,13 @@ module Jekyll
           when ::Contentful::DynamicEntry
             map_entry(value)
           when ::Array
-            map_array(value)
+            map_array(value, locale)
           when ::Symbol
             value.to_s
           when ::Hash
             result = {}
             value.each do |k, v|
-              result[k.to_s] = map_value(v)
+              result[k.to_s] = map_value(v, locale)
             end
             result
           else
@@ -70,8 +80,26 @@ module Jekyll
           end
         end
 
-        def map_asset(asset)
-          {'title' => asset.title, 'url' => asset.file.url}
+        def map_asset(asset, locale = nil)
+          if locale
+            file = asset.fields(locale)[:file]
+            file_url = file.nil? ? '' : file.url
+
+            return {
+              'title' => asset.fields(locale)[:title],
+              'description' => asset.fields(locale)[:description],
+              'url' => file_url
+            }
+          end
+
+          file = asset.file
+          file_url = file.nil? ? '' : file.url
+
+          {
+            'title' => asset.title,
+            'description' => asset.description,
+            'url' => file_url
+          }
         end
 
         def map_entry(child)
@@ -90,8 +118,8 @@ module Jekyll
           {'sys' => {'id' => link.id}}
         end
 
-        def map_array(array)
-          array.map {|element| map_value(element)}
+        def map_array(array, locale)
+          array.map {|element| map_value(element, locale)}
         end
       end
     end

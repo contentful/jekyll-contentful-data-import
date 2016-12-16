@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed localization issues for included assets [#29](https://github.com/contentful/jekyll-contentful-data-import/issues/29)
 
 ## v1.4.1
 ### Changed
