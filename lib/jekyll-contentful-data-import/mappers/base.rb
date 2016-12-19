@@ -29,7 +29,7 @@ module Jekyll
           fields = has_multiple_locales? ? entry.fields_with_locales : entry.fields
 
           fields.each do |k, v|
-            name, value = map_field(k, v)
+            name, value = map_field(k, v, has_multiple_locales?)
             result[name] = value
           end
 
@@ -40,10 +40,10 @@ module Jekyll
           config.fetch('cda_query', {}).fetch('locale', nil) == '*'
         end
 
-        def map_field(field_name, field_value)
+        def map_field(field_name, field_value, multiple_locales = false)
           value_mapping = nil
 
-          if has_multiple_locales?
+          if multiple_locales
             value_mapping = {}
             field_value.each do |locale, value|
               value_mapping[locale.to_s] = map_value(value, locale.to_s)
