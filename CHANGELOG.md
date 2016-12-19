@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Added
+* Added use of `map_field` without localizing for custom mappers that map `sys` properties when `locale='*'` is being sent.
 
 ## v1.4.2
 ### Fixed
