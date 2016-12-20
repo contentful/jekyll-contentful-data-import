@@ -67,7 +67,7 @@ all_entries_page_size | Integer, the amount of maximum entries per CDA Request w
 content_types         | Hash describing the mapping applied to entries of the imported content types
 client_options        | Hash describing Contentful::Client configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info.
 base_path             | String with path to your Jekyll Application, defaults to current directory. Path is relative to your current location.
-destination           | String with path within _data under which to store the output yaml file. Defaults to contentful/spaces
+destination           | String with path within `_data` under which to store the output yaml file. Defaults to contentful/spaces
 
 You can add multiple spaces to your configuration
 
@@ -123,33 +123,36 @@ Then proceed to run: `bundle exec rake contentful`
 In most cases you may want to avoid including your credentials in publicly available sites,
 therefore you can do the following:
 
-1. `bundle update`—make sure your gem version supports ENV_ variables
+1. `bundle update`—make sure your gem version supports `ENV_` variables
 
-2. Set up your _config like so:
+2. Set up your `_config` like so:
 
-   ```yaml
-   contentful:
-     spaces:
-       - example:
-           space:        ENV_CONTENTFUL_SPACE_ID
-           access_token: ENV_CONTENTFUL_ACCESS_TOKEN
-   ```
-   (Your Space ID will be looked upon on `ENV['CONTENTFUL_SPACE_ID']` and your Access Token
-   on `ENV['CONTENTFUL_ACCESS_TOKEN']`.)
+```yaml
+contentful:
+  spaces:
+    - example:
+        space:        ENV_CONTENTFUL_SPACE_ID
+        access_token: ENV_CONTENTFUL_ACCESS_TOKEN
+```
+
+(Your Space ID will be looked upon on `ENV['CONTENTFUL_SPACE_ID']` and your Access Token
+on `ENV['CONTENTFUL_ACCESS_TOKEN']`.)
 
 3. Either add the following variables to your shell's configuration file (.bashrc or .bash_profile, for example):
 
-   ```bash
-   export CONTENTFUL_ACCESS_TOKEN=abc123
-   export CONTENTFUL_SPACE_ID=abc123
-   ```
-   (And run `source ~/.bashrc` or open new terminal to enable changes.)
+```bash
+export CONTENTFUL_ACCESS_TOKEN=abc123
+export CONTENTFUL_SPACE_ID=abc123
+```
 
-   Or specify them on the command line:
+(And run `source ~/.bashrc` or open new terminal to enable changes.)
 
-   ```bash
-   CONTENTFUL_ACCESS_TOKEN=abc123 CONTENTFUL_SPACE_ID=abc123 jekyll contentful
-   ```
+Or specify them on the command line:
+
+```bash
+CONTENTFUL_ACCESS_TOKEN=abc123 CONTENTFUL_SPACE_ID=abc123 jekyll contentful
+```
+
 4. Party.
 
 This way, it is safe to share your code without having to worry
