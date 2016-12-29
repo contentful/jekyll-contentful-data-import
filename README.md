@@ -127,31 +127,30 @@ therefore you can do the following:
 
 2. Set up your `_config` like so:
 
-```yaml
-contentful:
-  spaces:
-    - example:
-        space:        ENV_CONTENTFUL_SPACE_ID
-        access_token: ENV_CONTENTFUL_ACCESS_TOKEN
-```
+  ```yaml
+  contentful:
+    spaces:
+      - example:
+          space:        ENV_CONTENTFUL_SPACE_ID
+          access_token: ENV_CONTENTFUL_ACCESS_TOKEN
+  ```
 
-(Your Space ID will be looked upon on `ENV['CONTENTFUL_SPACE_ID']` and your Access Token
-on `ENV['CONTENTFUL_ACCESS_TOKEN']`.)
+  (Your Space ID will be looked upon on `ENV['CONTENTFUL_SPACE_ID']` and your Access Token on `ENV['CONTENTFUL_ACCESS_TOKEN']`.)
 
 3. Either add the following variables to your shell's configuration file (.bashrc or .bash_profile, for example):
 
-```bash
-export CONTENTFUL_ACCESS_TOKEN=abc123
-export CONTENTFUL_SPACE_ID=abc123
-```
+  ```bash
+  export CONTENTFUL_ACCESS_TOKEN=abc123
+  export CONTENTFUL_SPACE_ID=abc123
+  ```
 
-(And run `source ~/.bashrc` or open new terminal to enable changes.)
+  (And run `source ~/.bashrc` or open new terminal to enable changes.)
 
-Or specify them on the command line:
+  Or specify them on the command line:
 
-```bash
-CONTENTFUL_ACCESS_TOKEN=abc123 CONTENTFUL_SPACE_ID=abc123 jekyll contentful
-```
+  ```bash
+  CONTENTFUL_ACCESS_TOKEN=abc123 CONTENTFUL_SPACE_ID=abc123 jekyll contentful
+  ```
 
 4. Party.
 
