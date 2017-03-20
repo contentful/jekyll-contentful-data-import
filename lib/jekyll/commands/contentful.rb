@@ -10,8 +10,11 @@ module Jekyll
 
           options.each {|opt| c.option(*opt) }
 
+          add_build_options(c)
+
           c.action do |args, options|
-            contentful_config = Jekyll.configuration['contentful']
+            jekyll_options = configuration_from_options(options)
+            contentful_config = jekyll_options['contentful']
             process args, options, contentful_config
           end
         end
