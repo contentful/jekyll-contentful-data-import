@@ -34,10 +34,11 @@ describe Jekyll::Contentful::Mappers::Base do
 
       class AssetDouble < Contentful::Asset
         attr_reader :title, :description, :file
-        def initialize(title, description, url, fields = nil)
+        def initialize(title, description, url, sys = {}, fields = nil)
           @title = title
           @description = description
           @file = FileDouble.new(url)
+          @sys = sys
           @fields = {
             'en-US' => {
               title: title,
@@ -47,6 +48,10 @@ describe Jekyll::Contentful::Mappers::Base do
           } if fields.nil?
 
           @fields ||= fields
+        end
+
+        def id
+          @sys[:id]
         end
 
         def fields(locale = nil)
@@ -75,13 +80,20 @@ describe Jekyll::Contentful::Mappers::Base do
       end
 
       it 'maps a simple entry' do
-        expected = { 'sys' => { 'id' => 'foo' } }
+        expected = {
+          'sys' => {
+            'id' => 'foo',
+            'created_at' => nil,
+            'updated_at' => nil,
+            'content_type_id' => 'content_type'
+          }
+        }
         expect(subject.map).to eq expected
       end
 
       it 'maps a complete entry' do
         entry = EntryDouble.new('foo', ContentTypeDouble.new, {
-          'asset' => AssetDouble.new('some_title', 'foo', 'some_url'),
+          'asset' => AssetDouble.new('some_title', 'foo', 'some_url', {id: 'asset'}),
           'location' => LocationDouble.new(12.32, 43.34),
           'link' => LinkDouble.new('bar'),
           'entry' => EntryDouble.new('baz'),
@@ -95,8 +107,18 @@ describe Jekyll::Contentful::Mappers::Base do
         subject.instance_variable_set(:@entry, entry)
 
         expected = {
-          'sys' => { 'id' => 'foo' },
+          'sys' => {
+            'id' => 'foo',
+            'created_at' => nil,
+            'updated_at' => nil,
+            'content_type_id' => 'content_type'
+          },
           'asset' => {
+            'sys' => {
+              'id' => 'asset',
+              'created_at' => nil,
+              'updated_at' => nil,
+            },
             'title' => 'some_title',
             'description' => 'foo',
             'url' => 'some_url'
@@ -109,7 +131,12 @@ describe Jekyll::Contentful::Mappers::Base do
             'sys' => { 'id' => 'bar' }
           },
           'entry' => {
-            'sys' => { 'id' => 'baz' }
+            'sys' => {
+              'id' => 'baz',
+              'created_at' => nil,
+              'updated_at' => nil,
+              'content_type_id' => 'content_type'
+            },
           },
           'array' => [
             { 'sys' => { 'id' => 'foobar' } },
@@ -135,7 +162,12 @@ describe Jekyll::Contentful::Mappers::Base do
         mapper = described_class.new(entry, config)
 
         expected = {
-          'sys' => { 'id' => 'foo' },
+          'sys' => {
+            'id' => 'foo',
+            'created_at' => nil,
+            'updated_at' => nil,
+            'content_type_id' => 'content_type'
+          },
           'foo' => {
             'en-US' => 'bar',
             'de-DE' => 'baz'
@@ -154,7 +186,7 @@ describe Jekyll::Contentful::Mappers::Base do
             'asset' => AssetDouble.new('some_title', 'foo', 'some_url')
           },
           'de-DE' => {
-            'asset' => AssetDouble.new('some_title', 'foo', 'some_url', {
+            'asset' => AssetDouble.new('some_title', 'foo', 'some_url', {id: 'foo'}, {
                 'de-DE' => {
                   title: 'other_title',
                   description: 'other description',
@@ -167,14 +199,29 @@ describe Jekyll::Contentful::Mappers::Base do
         mapper = described_class.new(entry, config)
 
         expected = {
-          'sys' => { 'id' => 'foo' },
+          'sys' => {
+            'id' => 'foo',
+            'created_at' => nil,
+            'updated_at' => nil,
+            'content_type_id' => 'content_type'
+          },
           'asset' => {
             "en-US" => {
+              "sys" => {
+                "id" => nil,
+                "created_at" => nil,
+                "updated_at" => nil
+              },
               "title" => "some_title",
               "description" => "foo",
               "url" => 'some_url'
             },
             "de-DE" => {
+              "sys" => {
+                "id" => "foo",
+                "created_at" => nil,
+                "updated_at" => nil
+              },
               "title" => "other_title",
               "description" => "other description",
               "url" => 'other_url'
