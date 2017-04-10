@@ -23,8 +23,18 @@ module Jekyll
           @config = config
         end
 
+        def map_entry_metadata
+          content_type = entry.sys.fetch(:content_type, nil)
+          return {
+            'id' => entry.sys.fetch(:id, nil),
+            'created_at' => entry.sys.fetch(:created_at, nil),
+            'updated_at' => entry.sys.fetch(:updated_at, nil),
+            'content_type_id' => content_type.nil? ? nil : content_type.id
+          }
+        end
+
         def map
-          result = {'sys' => {'id' => entry.id}}
+          result = { 'sys' => map_entry_metadata }
 
           fields = has_multiple_locales? ? entry.fields_with_locales : entry.fields
 
@@ -63,7 +73,7 @@ module Jekyll
             map_location(value)
           when ::Contentful::Link
             map_link(value)
-          when ::Contentful::DynamicEntry
+          when ::Contentful::Entry
             map_entry(value)
           when ::Array
             map_array(value, locale)
@@ -80,12 +90,21 @@ module Jekyll
           end
         end
 
+        def map_asset_metadata(asset)
+          return {
+            'id' => asset.id,
+            'created_at' => asset.sys.fetch(:created_at, nil),
+            'updated_at' => asset.sys.fetch(:updated_at, nil)
+          }
+        end
+
         def map_asset(asset, locale = nil)
           if locale
             file = asset.fields(locale)[:file]
             file_url = file.nil? ? '' : file.url
 
             return {
+              'sys' => map_asset_metadata(asset),
               'title' => asset.fields(locale)[:title],
               'description' => asset.fields(locale)[:description],
               'url' => file_url
@@ -96,6 +115,7 @@ module Jekyll
           file_url = file.nil? ? '' : file.url
 
           {
+            'sys' => map_asset_metadata(asset),
             'title' => asset.title,
             'description' => asset.description,
             'url' => file_url

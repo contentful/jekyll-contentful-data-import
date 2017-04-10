@@ -40,12 +40,14 @@ class ContentTypeDouble
   end
 end
 
-class EntryDouble < Contentful::DynamicEntry
+class EntryDouble < Contentful::Entry
   attr_reader :id, :content_type
 
   def initialize(id = '', content_type = ContentTypeDouble.new, fields = {}, locales = false)
     @id = id
     @content_type = content_type
+
+    @sys = { id: id, content_type: content_type, locale: 'en-US' }
 
     if locales
       @fields = fields
