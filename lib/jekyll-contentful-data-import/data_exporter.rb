@@ -17,9 +17,24 @@ module Jekyll
 
       def run
         setup_directory
+        puts config
+        export_fn = config['multiple_files'] ? export_by_content_type : export
+        export_fn
+      end
 
+      def export
+        grouped_entries = ::Jekyll::Contentful::Serializer.new(entries, config).serialize
         File.open(destination_file, 'w') do |file|
-          file.write(::Jekyll::Contentful::Serializer.new(entries, config).to_yaml)
+          file.write(YAML.dump(grouped_entries))
+        end
+      end
+
+      def export_by_content_type
+        grouped_entries = ::Jekyll::Contentful::Serializer.new(entries, config).serialize
+        grouped_entries.each do |content_type, entry_list|
+          File.open(destination_file(content_type), 'w') do |file|
+            file.write(YAML.dump(entry_list))
+          end
         end
       end
 
@@ -37,8 +52,8 @@ module Jekyll
         destination_dir
       end
 
-      def destination_file
-        File.join(destination_directory, "#{name}.yaml")
+      def destination_file(file_name = name)
+        File.join(destination_directory, "#{file_name}.yaml")
       end
 
       def setup_directory
