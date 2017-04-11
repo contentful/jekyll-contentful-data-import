@@ -1,7 +1,14 @@
 # Change Log
 
 ## Unreleased
+
+### Changed
+* Updated CDA SDK to 2.0
+
 ### Added
+* Added more metadata to `sys` attributes in entries
+* Added `sys` attributes for serialized assets
+
 
 ### v1.4.3
 * Added use of `map_field` without localizing for custom mappers that map `sys` properties when `locale='*'` is being sent.
