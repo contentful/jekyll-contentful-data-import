@@ -1,44 +1,51 @@
 require 'jekyll-contentful-data-import/importer'
 
 module Jekyll
+  # Module for Jekyll Commands
   module Commands
+    # jekyll contentful Command
     class Contentful < Command
       def self.init_with_program(prog)
         prog.command(:contentful) do |c|
           c.syntax 'contentful [OPTIONS]'
           c.description 'Imports data from Contentful'
 
-          options.each {|opt| c.option(*opt) }
+          options.each { |opt| c.option(*opt) }
 
           add_build_options(c)
 
-          c.action do |args, options|
-            jekyll_options = configuration_from_options(options)
-            contentful_config = jekyll_options['contentful']
-            process args, options, contentful_config
-          end
+          command_action(c)
         end
       end
 
       def self.options
         [
-          ['rebuild', '-r', '--rebuild', 'Rebuild Jekyll Site after fetching data'],
+          [
+            'rebuild', '-r', '--rebuild',
+            'Rebuild Jekyll Site after fetching data'
+          ]
         ]
       end
 
+      def self.command_action(command)
+        command.action do |args, options|
+          jekyll_options = configuration_from_options(options)
+          contentful_config = jekyll_options['contentful']
+          process args, options, contentful_config
+        end
+      end
 
-      def self.process(args = [], options = {}, contentful_config = {})
+      def self.process(_args = [], options = {}, contentful_config = {})
         Jekyll.logger.info 'Starting Contentful import'
 
         Jekyll::Contentful::Importer.new(contentful_config).run
 
         Jekyll.logger.info 'Contentful import finished'
 
-        if options['rebuild']
-          Jekyll.logger.info 'Starting Jekyll Rebuild'
+        return unless options['rebuild']
 
-          Jekyll::Commands::Build.process(options)
-        end
+        Jekyll.logger.info 'Starting Jekyll Rebuild'
+        Jekyll::Commands::Build.process(options)
       end
     end
   end

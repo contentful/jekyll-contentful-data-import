@@ -2,7 +2,11 @@ require 'contentful'
 
 module Jekyll
   module Contentful
+    # Mappers module
     module Mappers
+      # Base Mapper Class
+      #
+      # Logic for mapping entries into simplified serialized representations
       class Base
         def self.mapper_for(entry, config)
           ct = entry.content_type
@@ -25,7 +29,7 @@ module Jekyll
 
         def map_entry_metadata
           content_type = entry.sys.fetch(:content_type, nil)
-          return {
+          {
             'id' => entry.sys.fetch(:id, nil),
             'created_at' => entry.sys.fetch(:created_at, nil),
             'updated_at' => entry.sys.fetch(:updated_at, nil),
@@ -36,17 +40,17 @@ module Jekyll
         def map
           result = { 'sys' => map_entry_metadata }
 
-          fields = has_multiple_locales? ? entry.fields_with_locales : entry.fields
+          fields = multiple_locales? ? entry.fields_with_locales : entry.fields
 
           fields.each do |k, v|
-            name, value = map_field(k, v, has_multiple_locales?)
+            name, value = map_field(k, v, multiple_locales?)
             result[name] = value
           end
 
           result
         end
 
-        def has_multiple_locales?
+        def multiple_locales?
           config.fetch('cda_query', {}).fetch('locale', nil) == '*'
         end
 
@@ -62,7 +66,7 @@ module Jekyll
             value_mapping = map_value(field_value)
           end
 
-          return field_name.to_s, value_mapping
+          [field_name.to_s, value_mapping]
         end
 
         def map_value(value, locale = nil)
@@ -91,7 +95,7 @@ module Jekyll
         end
 
         def map_asset_metadata(asset)
-          return {
+          {
             'id' => asset.id,
             'created_at' => asset.sys.fetch(:created_at, nil),
             'updated_at' => asset.sys.fetch(:updated_at, nil)
@@ -135,11 +139,15 @@ module Jekyll
         end
 
         def map_link(link)
-          {'sys' => {'id' => link.id}}
+          {
+            'sys' => {
+              'id' => link.id
+            }
+          }
         end
 
         def map_array(array, locale)
-          array.map {|element| map_value(element, locale)}
+          array.map { |element| map_value(element, locale) }
         end
       end
     end
