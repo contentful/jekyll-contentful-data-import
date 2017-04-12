@@ -9,6 +9,8 @@
 * Added more metadata to `sys` attributes in entries
 * Added `sys` attributes for serialized assets
 
+### Fixed
+* Updated code to match style guide
 
 ### v1.4.3
 * Added use of `map_field` without localizing for custom mappers that map `sys` properties when `locale='*'` is being sent.

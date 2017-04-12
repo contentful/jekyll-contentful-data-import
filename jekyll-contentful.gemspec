@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubygems-tasks', '~> 0.2'
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-rspec"
+  s.add_development_dependency 'guard-rubocop'
   s.add_development_dependency "bundler", "~> 1.6"
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec", "~> 3.0"
@@ -34,4 +35,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "webmock"
   s.add_development_dependency "pry"
   s.add_development_dependency "simplecov"
+  s.add_development_dependency "rubocop"
 end

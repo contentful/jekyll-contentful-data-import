@@ -3,6 +3,9 @@ require 'jekyll-contentful-data-import/data_exporter'
 
 module Jekyll
   module Contentful
+    # Importer class
+    #
+    # Entry fetching logic
     class Importer
       attr_reader :config
 
@@ -18,12 +21,16 @@ module Jekyll
             client_options(options.fetch('client_options', {}))
           )
 
-          Jekyll::Contentful::DataExporter.new(
-            name,
-            get_entries(space_client, options),
-            options
-          ).run
+          export_data(name, space_client, options)
         end
+      end
+
+      def export_data(name, space_client, options)
+        Jekyll::Contentful::DataExporter.new(
+          name,
+          get_entries(space_client, options),
+          options
+        ).run
       end
 
       def value_for(options, key)
@@ -33,7 +40,7 @@ module Jekyll
       end
 
       def spaces
-        config['spaces'].map { |space_data| space_data.first }
+        config['spaces'].map(&:first)
       end
 
       def get_entries(space_client, options)
@@ -70,7 +77,11 @@ module Jekyll
       private
 
       def client_options(options)
-        options = options.each_with_object({}){|(k,v), memo| memo[k.to_sym] = v; memo}
+        options = options.each_with_object({}) do |(k, v), memo|
+          memo[k.to_sym] = v
+          memo
+        end
+
         options.delete(:dynamic_entries)
         options.delete(:raise_errors)
         options

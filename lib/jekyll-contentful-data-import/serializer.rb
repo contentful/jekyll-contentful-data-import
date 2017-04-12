@@ -3,6 +3,9 @@ require 'jekyll-contentful-data-import/mappers'
 
 module Jekyll
   module Contentful
+    # Serializer class
+    #
+    # Transforms the serialized entries to YAML
     class Serializer
       attr_reader :entries, :config
 
