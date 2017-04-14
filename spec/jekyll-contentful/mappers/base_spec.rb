@@ -61,13 +61,11 @@ describe Jekyll::Contentful::Mappers::Base do
       end
 
       class LocationDouble < Contentful::Location
+        attr_reader :lat, :lon
+
         def initialize(lat, lon)
           @lat = lat
           @lon = lon
-        end
-
-        def properties
-          { 'lat' => @lat, 'lon' => @lon }
         end
       end
 
