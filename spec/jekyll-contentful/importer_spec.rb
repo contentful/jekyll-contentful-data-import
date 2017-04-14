@@ -70,7 +70,7 @@ describe Jekyll::Contentful::Importer do
         allow(subject).to receive(:spaces).and_return([['foo', {'space' => 'foo', 'access_token' => 'bar'}], ['bar', {'space' => 'bar', 'access_token' => 'foo'}]])
         allow(subject).to receive(:client).and_return(ClientDouble.new)
 
-        expect(Jekyll::Contentful::DataExporter).to receive(:new).and_return(ExporterDouble.new).twice
+        expect(Jekyll::Contentful::SingleFileDataExporter).to receive(:new).and_return(ExporterDouble.new).twice
 
         subject.run
       end
@@ -78,7 +78,27 @@ describe Jekyll::Contentful::Importer do
       it 'runs exporter with correct arguments' do
         allow(subject).to receive(:client).and_return(ClientDouble.new)
 
-        expect(Jekyll::Contentful::DataExporter).to receive(:new).with('example', [], config['spaces'].first['example']).and_return(ExporterDouble.new)
+        expect(Jekyll::Contentful::SingleFileDataExporter).to receive(:new).with('example', [], config['spaces'].first['example']).and_return(ExporterDouble.new)
+
+        subject.run
+      end
+
+      it 'runs multifile exporter when passed :individual_entry_files flag' do
+        config = {
+          'spaces' => [
+            {
+              'example' => {
+                'space' => 'cfexampleapi',
+                'access_token' => 'b4c0n73n7fu1',
+                'individual_entry_files' => true
+              }
+            }
+          ]
+        }
+        subject = described_class.new(config)
+        allow(subject).to receive(:client).and_return(ClientDouble.new)
+
+        expect(Jekyll::Contentful::MultiFileDataExporter).to receive(:new).with('example', [], config['spaces'].first['example']).and_return(ExporterDouble.new)
 
         subject.run
       end

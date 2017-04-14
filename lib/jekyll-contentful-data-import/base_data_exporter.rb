@@ -2,14 +2,10 @@ require 'jekyll-contentful-data-import/serializer'
 
 module Jekyll
   module Contentful
-    # Data Exporter Class
+    # Base Data Exporter Class
     #
-    # Serializes Contentful data into YAML files
-    class DataExporter
-      DATA_FOLDER = '_data'.freeze
-      CONTENTFUL_FOLDER = 'contentful'.freeze
-      SPACES_FOLDER = 'spaces'.freeze
-
+    # Generic Data Exporter Implementation
+    class BaseDataExporter
       attr_reader :name, :entries, :config
 
       def initialize(name, entries, config = {})
@@ -19,16 +15,7 @@ module Jekyll
       end
 
       def run
-        setup_directory
-
-        File.open(destination_file, 'w') do |file|
-          file.write(
-            ::Jekyll::Contentful::Serializer.new(
-              entries,
-              config
-            ).to_yaml
-          )
-        end
+        raise 'must implement'
       end
 
       def base_directory
@@ -45,24 +32,34 @@ module Jekyll
 
       def destination_directory
         destination_dir = File.join(
-          base_directory, DATA_FOLDER,
-          CONTENTFUL_FOLDER, SPACES_FOLDER
+          base_directory, data_folder,
+          contentful_folder, spaces_folder
         )
         if config.key?('destination')
           destination_dir = File.join(
-            base_directory, DATA_FOLDER, config['destination']
+            base_directory, data_folder, config['destination']
           )
         end
 
         destination_dir
       end
 
-      def destination_file
-        File.join(destination_directory, "#{name}.yaml")
+      def setup_directory(directory)
+        FileUtils.mkdir_p(directory)
       end
 
-      def setup_directory
-        FileUtils.mkdir_p destination_directory
+      protected
+
+      def data_folder
+        '_data'
+      end
+
+      def contentful_folder
+        'contentful'
+      end
+
+      def spaces_folder
+        'spaces'
       end
     end
   end

@@ -1,5 +1,6 @@
 require 'contentful'
-require 'jekyll-contentful-data-import/data_exporter'
+require 'jekyll-contentful-data-import/single_file_data_exporter'
+require 'jekyll-contentful-data-import/multi_file_data_exporter'
 
 module Jekyll
   module Contentful
@@ -26,9 +27,35 @@ module Jekyll
       end
 
       def export_data(name, space_client, options)
-        Jekyll::Contentful::DataExporter.new(
+        entries = get_entries(space_client, options)
+
+        if options.fetch('individual_entry_files', false)
+          export_data_multiple_files(
+            name,
+            entries,
+            options
+          )
+        else
+          export_data_single_file(
+            name,
+            entries,
+            options
+          )
+        end
+      end
+
+      def export_data_single_file(name, entries, options)
+        Jekyll::Contentful::SingleFileDataExporter.new(
           name,
-          get_entries(space_client, options),
+          entries,
+          options
+        ).run
+      end
+
+      def export_data_multiple_files(name, entries, options)
+        Jekyll::Contentful::MultiFileDataExporter.new(
+          name,
+          entries,
           options
         ).run
       end
