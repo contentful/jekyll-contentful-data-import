@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v1.5.0
+
 ### Changed
 * Updated CDA SDK to 2.0
 
