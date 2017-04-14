@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed wrong serialization for Location fields
 
 ## v1.5.0
 
