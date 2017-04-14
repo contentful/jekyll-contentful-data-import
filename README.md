@@ -83,19 +83,19 @@ The default mapper will map fields, assets and linked entries.
 You can create your own mappers if you need to. The only requirement for a class to behave as a
 mapper is to have a `map` instance method.
 
-Following is an example of such custom mapper that adds all `sys` properties to the entry:
+Following is an example of such custom mapper that reverses all entry field IDs:
 
 ```ruby
-class MySysMapper < ::Jekyll::Contentful::Mappers::Base
+class MyReverseMapper < ::Jekyll::Contentful::Mappers::Base
   def map
     result = super
+    reversed_result = {}
 
-    entry.sys.each do |k, v|
-      name, value = map_field k, v
-      result['sys'][name] = value
+    result.each do |k, v|
+      reversed_result[k.reverse] = v
     end
 
-    result
+    reversed_result
   end
 end
 ```
@@ -123,7 +123,7 @@ Then proceed to run: `bundle exec rake contentful`
 In most cases you may want to avoid including your credentials in publicly available sites,
 therefore you can do the following:
 
-1. `bundle update`—make sure your gem version supports `ENV_` variables
+1. `bundle update` — make sure your gem version supports `ENV_` variables
 
 2. Set up your `_config` like so:
 
