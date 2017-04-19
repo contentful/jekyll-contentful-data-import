@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+* Independent file per entry [#45](https://github.com/contentful/jekyll-contentful-data-import/pull/45) [#10](https://github.com/contentful/jekyll-contentful-data-import/issues/10) [#23](https://github.com/contentful/jekyll-contentful-data-import/pull/23) [#25](https://github.com/contentful/jekyll-contentful-data-import/issues/25)
+
 ## v1.5.1
 ### Fixed
 * Fixed wrong serialization for Location fields
@@ -10,6 +13,7 @@
 
 ### Changed
 * Updated CDA SDK to 2.0
+* Field IDs will now be `snake_cased` following the 2.0.1 Ruby CDA SDK Upgrade
 
 ### Added
 * Added more metadata to `sys` attributes in entries
