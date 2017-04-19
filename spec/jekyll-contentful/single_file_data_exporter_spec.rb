@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'stringio'
 
-describe Jekyll::Contentful::DataExporter do
+describe Jekyll::Contentful::SingleFileDataExporter do
   subject { described_class.new('foo', []) }
 
   describe 'instance methods' do
@@ -10,7 +10,7 @@ describe Jekyll::Contentful::DataExporter do
         expect(subject.base_directory).to eq(Dir.pwd)
       end
 
-      it 'overriden directory' do
+      it 'overridden directory' do
         subject = described_class.new('foo', [], {'base_path' => 'foo_dir'})
 
         expect(subject.base_directory).to eq(File.join(Dir.pwd, 'foo_dir'))
@@ -57,7 +57,7 @@ describe Jekyll::Contentful::DataExporter do
         expected = File.join(Dir.pwd, '_data', 'contentful', 'spaces')
         expect(FileUtils).to receive(:mkdir_p).with(expected)
 
-        subject.setup_directory
+        subject.setup_directory(expected)
       end
 
       it 'overridden directory' do
@@ -66,7 +66,7 @@ describe Jekyll::Contentful::DataExporter do
         expected = File.join(Dir.pwd, 'foo_dir', '_data', 'contentful', 'spaces')
         expect(FileUtils).to receive(:mkdir_p).with(expected)
 
-        subject.setup_directory
+        subject.setup_directory(expected)
       end
     end
 

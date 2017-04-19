@@ -55,19 +55,21 @@ contentful:
           api_url: 'preview.contentful.com' # Defaults to 'api.contentful.com' which is Production
         base_path: app_path         # Optional - Defaults to Current directory
         destination: destination_in_data # Optional - Defaults to _data/contentful/spaces
+        individual_entry_files: true # Optional - Defaults to false
 ```
 
-Parameter             | Description
-----------            | ------------
-space                 | Contentful Space ID
-access_token          | Contentful Delivery API access token
-cda_query             | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there). Note that by default only 100 entries will be fetched, this can be configured to up to 1000 entries using the `limit` option.
-all_entries           | Boolean, if true will run multiple queries to the API until it fetches all entries for the space
-all_entries_page_size | Integer, the amount of maximum entries per CDA Request when fetching :all_entries
-content_types         | Hash describing the mapping applied to entries of the imported content types
-client_options        | Hash describing Contentful::Client configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info.
-base_path             | String with path to your Jekyll Application, defaults to current directory. Path is relative to your current location.
-destination           | String with path within `_data` under which to store the output yaml file. Defaults to contentful/spaces
+Parameter              | Description
+----------             | ------------
+space                  | Contentful Space ID
+access_token           | Contentful Delivery API access token
+cda_query              | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there). Note that by default only 100 entries will be fetched, this can be configured to up to 1000 entries using the `limit` option.
+all_entries            | Boolean, if true will run multiple queries to the API until it fetches all entries for the space
+all_entries_page_size  | Integer, the amount of maximum entries per CDA Request when fetching :all_entries
+content_types          | Hash describing the mapping applied to entries of the imported content types
+client_options         | Hash describing Contentful::Client configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info.
+base_path              | String with path to your Jekyll Application, defaults to current directory. Path is relative to your current location.
+destination            | String with path within `_data` under which to store the output yaml file. Defaults to contentful/spaces
+individual_entry_files | Boolean, if true will create an individual file per entry separated in folders by content type, file path will be `{space_alias}/{content_type_id}/{entry_id}.yaml`. Default behavior is to create a file per space. Usage is affected when this is set to true, please look in the section below.
 
 You can add multiple spaces to your configuration
 
@@ -156,6 +158,26 @@ therefore you can do the following:
 
 This way, it is safe to share your code without having to worry
 about your credentials.
+
+### Using Multiple Entry Files
+
+When setting the `individual_entry_files` flag to true, the usage pattern changes a little,
+as Jekyll does not allow for variable unpacking when iterating.
+
+A usage example is as follows:
+
+```html
+<ul class="cat-list">
+  <!-- Each element in the array of entries for a content type is an array of the form ['entry_id', { ... entry_data ...}] -->
+  {% for cat_data in site.data.contentful.spaces.example.cat %}
+    {% assign cat_id = cat_data[0] %} <!-- Entry ID is the first element of the array -->
+    {% assign cat = cat_data[1] %} <!-- Entry data is the second element of the array -->
+    <li>
+      <p>{{ cat_id }}: {{ cat.name }}</p>
+    </li>
+  {% endfor %}
+</ul>
+```
 
 ## Examples
 
