@@ -4,6 +4,7 @@
 
 ### Added
 * Independent file per entry [#45](https://github.com/contentful/jekyll-contentful-data-import/pull/45) [#10](https://github.com/contentful/jekyll-contentful-data-import/issues/10) [#23](https://github.com/contentful/jekyll-contentful-data-import/pull/23) [#25](https://github.com/contentful/jekyll-contentful-data-import/issues/25)
+* Added User Agent Integration Headers
 
 ## v1.5.1
 ### Fixed

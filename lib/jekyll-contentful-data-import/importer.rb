@@ -95,7 +95,9 @@ module Jekyll
           space: space,
           access_token: access_token,
           dynamic_entries: :auto,
-          raise_errors: true
+          raise_errors: true,
+          integration_name: 'jekyll',
+          integration_version: Jekyll::Contentful::VERSION
         }.merge(options)
 
         ::Contentful::Client.new(options)
