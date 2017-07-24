@@ -33,7 +33,8 @@ module Jekyll
             'id' => entry.sys.fetch(:id, nil),
             'created_at' => entry.sys.fetch(:created_at, nil),
             'updated_at' => entry.sys.fetch(:updated_at, nil),
-            'content_type_id' => content_type.nil? ? nil : content_type.id
+            'content_type_id' => content_type.nil? ? nil : content_type.id,
+            'revision' => entry.sys.fetch(:revision, nil)
           }
         end
 
