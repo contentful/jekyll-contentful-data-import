@@ -83,7 +83,8 @@ describe Jekyll::Contentful::Mappers::Base do
             'id' => 'foo',
             'created_at' => nil,
             'updated_at' => nil,
-            'content_type_id' => 'content_type'
+            'content_type_id' => 'content_type',
+            'revision' => nil
           }
         }
         expect(subject.map).to eq expected
@@ -109,7 +110,8 @@ describe Jekyll::Contentful::Mappers::Base do
             'id' => 'foo',
             'created_at' => nil,
             'updated_at' => nil,
-            'content_type_id' => 'content_type'
+            'content_type_id' => 'content_type',
+            'revision' => nil
           },
           'asset' => {
             'sys' => {
@@ -133,7 +135,8 @@ describe Jekyll::Contentful::Mappers::Base do
               'id' => 'baz',
               'created_at' => nil,
               'updated_at' => nil,
-              'content_type_id' => 'content_type'
+              'content_type_id' => 'content_type',
+              'revision' => nil
             },
           },
           'array' => [
@@ -164,7 +167,8 @@ describe Jekyll::Contentful::Mappers::Base do
             'id' => 'foo',
             'created_at' => nil,
             'updated_at' => nil,
-            'content_type_id' => 'content_type'
+            'content_type_id' => 'content_type',
+            'revision' => nil
           },
           'foo' => {
             'en-US' => 'bar',
@@ -201,7 +205,8 @@ describe Jekyll::Contentful::Mappers::Base do
             'id' => 'foo',
             'created_at' => nil,
             'updated_at' => nil,
-            'content_type_id' => 'content_type'
+            'content_type_id' => 'content_type',
+            'revision' => nil
           },
           'asset' => {
             "en-US" => {

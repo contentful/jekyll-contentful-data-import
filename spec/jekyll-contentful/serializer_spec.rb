@@ -30,7 +30,8 @@ describe Jekyll::Contentful::Serializer do
                 'id' => 'foo',
                 'created_at' => nil,
                 'updated_at' => nil,
-                'content_type_id' => 'content_type'
+                'content_type_id' => 'content_type',
+                'revision' => nil
               }
             }
           ]
@@ -48,7 +49,8 @@ describe Jekyll::Contentful::Serializer do
                 'id' => 'foo',
                 'created_at' => nil,
                 'updated_at' => nil,
-                'content_type_id' => 'content_type'
+                'content_type_id' => 'content_type',
+                'revision' => nil
               },
               'foobar' => 'bar'
             }
@@ -73,14 +75,16 @@ describe Jekyll::Contentful::Serializer do
                 'id' => 'foo',
                 'created_at' => nil,
                 'updated_at' => nil,
-                'content_type_id' => 'content_type'
+                'content_type_id' => 'content_type',
+                'revision' => nil
               },
               'foobar' => {
                 'sys' => {
                   'id' => 'foobar',
                   'created_at' => nil,
                   'updated_at' => nil,
-                  'content_type_id' => 'content_type'
+                  'content_type_id' => 'content_type',
+                  'revision' => nil
                 },
                 'baz' => 1
               }
@@ -103,7 +107,8 @@ describe Jekyll::Contentful::Serializer do
                 'id' => 'foo',
                 'created_at' => nil,
                 'updated_at' => nil,
-                'content_type_id' => 'content_type'
+                'content_type_id' => 'content_type',
+                'revision' => nil
               },
               'foobar' => 'bar'
             },
@@ -112,7 +117,8 @@ describe Jekyll::Contentful::Serializer do
                 'id' => 'bar',
                 'created_at' => nil,
                 'updated_at' => nil,
-                'content_type_id' => 'content_type'
+                'content_type_id' => 'content_type',
+                'revision' => nil
               },
               'foobar' => 'baz'
             }
