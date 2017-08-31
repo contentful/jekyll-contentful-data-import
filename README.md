@@ -53,6 +53,7 @@ contentful:
           cat: MyCoolMapper
         client_options:             # Optional
           api_url: 'preview.contentful.com' # Defaults to 'api.contentful.com' which is Production
+          max_include_resolution_depth: 5 #represents the maximum depth the include resolution tree is allowed to resolved
         base_path: app_path         # Optional - Defaults to Current directory
         destination: destination_in_data # Optional - Defaults to _data/contentful/spaces
         individual_entry_files: true # Optional - Defaults to false
