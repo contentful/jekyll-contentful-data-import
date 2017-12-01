@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/contentful/jekyll-contentful-data-import.svg?branch=master)](https://travis-ci.org/contentful/jekyll-contentful-data-import)
 
-Jekyll-Contentful-Data-Import is a [Jekyll](http://jekyllrb.com/) extension to use the Jekyll static site generator together with the API-driven [Contentful CMS](https://www.contentful.com). It is powered by the [Contentful Ruby Gem](https://github.com/contentful/contentful.rb).
+[Contentful](https://www.contentful.com) provides a content infrastructure for digital teams to power content in websites, apps, and devices. Unlike a CMS, Contentful was built to integrate with the modern software stack. It offers a central hub for structured content, powerful management and delivery APIs, and a customizable web app that enable developers and content creators to ship digital products faster.
+
+Jekyll-Contentful-Data-Import is a [Jekyll](http://jekyllrb.com/) extension to use the Jekyll static site generator together with [Contentful](https://www.contentful.com). It is powered by the [Contentful Ruby Gem](https://github.com/contentful/contentful.rb).
 
 Experience the power of Jekyll while staying sane as a developer by letting end-users edit content in a web-based interface.
 
