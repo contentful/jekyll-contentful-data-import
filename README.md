@@ -46,6 +46,7 @@ contentful:
     - example: # Jekyll _data folder identifier - Required
         space: cfexampleapi         # Required
         access_token: b4c0n73n7fu1  # Required
+        environment: master         # Optional
         cda_query:                  # Optional
           include: 2
           limit: 100
@@ -65,6 +66,7 @@ Parameter              | Description
 ----------             | ------------
 space                  | Contentful Space ID
 access_token           | Contentful Delivery API access token
+environment            | Space environment, defaults to `master`
 cda_query              | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there). Note that by default only 100 entries will be fetched, this can be configured to up to 1000 entries using the `limit` option.
 all_entries            | Boolean, if true will run multiple queries to the API until it fetches all entries for the space
 all_entries_page_size  | Integer, the amount of maximum entries per CDA Request when fetching :all_entries
@@ -138,15 +140,17 @@ therefore you can do the following:
       - example:
           space:        ENV_CONTENTFUL_SPACE_ID
           access_token: ENV_CONTENTFUL_ACCESS_TOKEN
+          environment:  ENV_CONTENTFUL_ENVIRONMENT
   ```
 
-  (Your Space ID will be looked upon on `ENV['CONTENTFUL_SPACE_ID']` and your Access Token on `ENV['CONTENTFUL_ACCESS_TOKEN']`.)
+  (Your Space ID will be looked upon on `ENV['CONTENTFUL_SPACE_ID']`, your Access Token on `ENV['CONTENTFUL_ACCESS_TOKEN']` and your environment on `ENV['CONTENTFUL_ENVIRONMENT']`.)
 
 3. Either add the following variables to your shell's configuration file (.bashrc or .bash_profile, for example):
 
   ```bash
   export CONTENTFUL_ACCESS_TOKEN=abc123
   export CONTENTFUL_SPACE_ID=abc123
+  export CONTENTFUL_ENVIRONMENT=master
   ```
 
   (And run `source ~/.bashrc` or open new terminal to enable changes.)
@@ -154,7 +158,7 @@ therefore you can do the following:
   Or specify them on the command line:
 
   ```bash
-  CONTENTFUL_ACCESS_TOKEN=abc123 CONTENTFUL_SPACE_ID=abc123 jekyll contentful
+  CONTENTFUL_ACCESS_TOKEN=abc123 CONTENTFUL_SPACE_ID=abc123 CONTENTFUL_ENVIRONMENT=master jekyll contentful
   ```
 
 4. Party.

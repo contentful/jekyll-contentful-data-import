@@ -1,9 +1,10 @@
 # Change Log
 
 ## Unreleased
+### Added
+* Added top-level environment assignment, with support for `ENV_` access [#61](https://github.com/contentful/jekyll-contentful-data-import/issues/61)
 
-## 1.6.0
-
+## v1.6.0
 ### Added
 * Independent file per entry [#45](https://github.com/contentful/jekyll-contentful-data-import/pull/45) [#10](https://github.com/contentful/jekyll-contentful-data-import/issues/10) [#23](https://github.com/contentful/jekyll-contentful-data-import/pull/23) [#25](https://github.com/contentful/jekyll-contentful-data-import/issues/25)
 * Added User Agent Integration Headers
