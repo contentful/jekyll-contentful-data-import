@@ -45,6 +45,7 @@ describe Jekyll::Contentful::Importer do
         expect(::Contentful::Client).to receive(:new).with(
           space: 'foo',
           access_token: 'foobar',
+          environment: 'master',
           dynamic_entries: :auto,
           raise_errors: true,
           integration_name: 'jekyll',
@@ -58,13 +59,14 @@ describe Jekyll::Contentful::Importer do
         expect(::Contentful::Client).to receive(:new).with(
           space: 'foo',
           access_token: 'foobar',
+          environment: 'master',
           dynamic_entries: :auto,
           raise_errors: false,
           integration_name: 'jekyll',
           integration_version: Jekyll::Contentful::VERSION
         )
 
-        subject.client('foo', 'foobar', raise_errors: false)
+        subject.client('foo', 'foobar', 'master', raise_errors: false)
       end
     end
 

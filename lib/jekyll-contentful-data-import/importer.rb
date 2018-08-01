@@ -19,6 +19,7 @@ module Jekyll
           space_client = client(
             value_for(options, 'space'),
             value_for(options, 'access_token'),
+            value_for(options, 'environment'),
             client_options(options.fetch('client_options', {}))
           )
 
@@ -62,7 +63,7 @@ module Jekyll
 
       def value_for(options, key)
         potential_value = options[key]
-        return ENV[potential_value.gsub('ENV_', '')] if potential_value.start_with?('ENV_')
+        return ENV[potential_value.gsub('ENV_', '')] if !potential_value.nil? && potential_value.start_with?('ENV_')
         potential_value
       end
 
@@ -90,10 +91,11 @@ module Jekyll
         all
       end
 
-      def client(space, access_token, options = {})
+      def client(space, access_token, environment = nil, options = {})
         options = {
           space: space,
           access_token: access_token,
+          environment: environment || 'master',
           dynamic_entries: :auto,
           raise_errors: true,
           integration_name: 'jekyll',
