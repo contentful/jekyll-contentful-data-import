@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## v1.7.0
 ### Added
 * Added top-level environment assignment, with support for `ENV_` access [#61](https://github.com/contentful/jekyll-contentful-data-import/issues/61)
 
