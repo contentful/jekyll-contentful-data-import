@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Jekyll::Commands::Contentful do
+  before :each do
+    allow(Jekyll.logger).to receive(:debug).with("Couldn't find custom mappers")
+  end
+
   describe 'class methods' do
     describe '::init_with_program' do
       it 'implements jekyll command interface' do

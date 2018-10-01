@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Added
+* Added capability to autoload mappers [#22](https://github.com/contentful/jekyll-contentful-data-import/issues/22)
 
 ## v1.7.0
 ### Added
