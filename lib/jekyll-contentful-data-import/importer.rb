@@ -10,8 +10,11 @@ module Jekyll
     class Importer
       attr_reader :config
 
-      def initialize(config)
-        @config = config
+      def initialize(jekyll_config)
+        @jekyll_config = jekyll_config
+        @config = jekyll_config['contentful']
+
+        autoload_mappers!
       end
 
       def run
@@ -116,6 +119,14 @@ module Jekyll
         options.delete(:dynamic_entries)
         options.delete(:raise_errors)
         options
+      end
+
+      def autoload_mappers!
+        mapper_search_path = File.join(@jekyll_config['source'], @jekyll_config['plugins_dir'], 'mappers')
+        mapper_files = Jekyll::Utils.safe_glob(mapper_search_path, File.join('**', '*.rb'))
+        Jekyll::External.require_with_graceful_fail(mapper_files)
+      rescue StandardError
+        Jekyll.logger.debug "Couldn't find custom mappers"
       end
     end
   end

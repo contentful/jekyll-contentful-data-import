@@ -30,15 +30,14 @@ module Jekyll
       def self.command_action(command)
         command.action do |args, options|
           jekyll_options = configuration_from_options(options)
-          contentful_config = jekyll_options['contentful']
-          process args, options, contentful_config
+          process args, options, jekyll_options
         end
       end
 
-      def self.process(_args = [], options = {}, contentful_config = {})
+      def self.process(_args = [], options = {}, config = {})
         Jekyll.logger.info 'Starting Contentful import'
 
-        Jekyll::Contentful::Importer.new(contentful_config).run
+        Jekyll::Contentful::Importer.new(config).run
 
         Jekyll.logger.info 'Contentful import finished'
 
