@@ -3,7 +3,7 @@
 ## Unreleased
 ### Added
 * Added capability to autoload mappers [#22](https://github.com/contentful/jekyll-contentful-data-import/issues/22)
-* *This feature is currently in ALPHA state, changes may occur as patch fixes* Added support for StructuredText and added the `structured_text` view filter.
+* *This feature is currently in BETA state, changes may occur as patch fixes* Added support for RichText and added the `rich_text` view filter.
 
 ## v1.7.0
 ### Added

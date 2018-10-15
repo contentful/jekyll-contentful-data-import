@@ -18,26 +18,26 @@ class MockContext
 end
 
 class MockSiteContext
-  include Jekyll::Contentful::StructuredTextFilter
+  include Jekyll::Contentful::RichTextFilter
 
   def initialize(config)
     @context = MockContext.new(config)
   end
 end
 
-class MyRenderer < StructuredTextRenderer::BaseNodeRenderer
+class MyRenderer < RichTextRenderer::BaseNodeRenderer
   def render(node)
     return "<div>I eat nodes for breakfast</div>"
   end
 end
 
-describe Jekyll::Contentful::StructuredTextFilter do
+describe Jekyll::Contentful::RichTextFilter do
   let(:config) do
     {
       'contentful' => {
         'spaces' => [
           'foo' => {
-            'structured_text_mappings' => {
+            'rich_text_mappings' => {
               'embedded-entry-block' => 'MyRenderer'
             }
           },
@@ -48,7 +48,7 @@ describe Jekyll::Contentful::StructuredTextFilter do
     }
   end
 
-  let(:st_field) do
+  let(:rt_field) do
     {
       "content" => [
         {
@@ -650,7 +650,7 @@ describe Jekyll::Contentful::StructuredTextFilter do
               "nodeClass" => "block"
             }
           ],
-          "nodeType" => "quote",
+          "nodeType" => "blockquote",
           "nodeClass" => "block"
         },
         {
@@ -677,18 +677,18 @@ describe Jekyll::Contentful::StructuredTextFilter do
 
   subject { MockSiteContext.new(config) }
 
-  describe 'renders structured text' do
+  describe 'renders rich text' do
     it 'by defaults uses first available config' do
-      result = subject.structured_text(st_field)
+      result = subject.rich_text(rt_field)
 
       expect(result).to include("<div>I eat nodes for breakfast</div>")
     end
 
     it 'can define which space configuration to use' do
-      result = subject.structured_text(st_field, 'foo')
+      result = subject.rich_text(rt_field, 'foo')
       expect(result).to include("<div>I eat nodes for breakfast</div>")
 
-      result = subject.structured_text(st_field, 'bar')
+      result = subject.rich_text(rt_field, 'bar')
       expect(result).not_to include("<div>I eat nodes for breakfast</div>")
     end
   end
