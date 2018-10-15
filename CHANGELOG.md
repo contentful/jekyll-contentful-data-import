@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## v1.8.0
 ### Added
 * Added capability to autoload mappers [#22](https://github.com/contentful/jekyll-contentful-data-import/issues/22)
 * *This feature is currently in BETA state, changes may occur as patch fixes* Added support for RichText and added the `rich_text` view filter.
