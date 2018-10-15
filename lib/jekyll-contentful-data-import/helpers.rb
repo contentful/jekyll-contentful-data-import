@@ -1,20 +1,20 @@
-require 'structured_text_renderer'
+require 'rich_text_renderer'
 
 module Jekyll
   module Contentful
-    # Liquid filter for the StructuredText field.
-    module StructuredTextFilter
-      def structured_text(field, space = nil)
+    # Liquid filter for the RichText field.
+    module RichTextFilter
+      def rich_text(field, space = nil)
         return if field.nil?
 
-        StructuredTextRenderer::Renderer.new(mappings_for(space)).render(field)
+        RichTextRenderer::Renderer.new(mappings_for(space)).render(field)
       end
 
       private
 
       def mappings_for(space)
         mappings = {}
-        config_for(space).fetch('structured_text_mappings', {}).each do |k, v|
+        config_for(space).fetch('rich_text_mappings', {}).each do |k, v|
           mappings[k.to_s] = Module.const_get(v)
         end
 
@@ -32,4 +32,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_filter(Jekyll::Contentful::StructuredTextFilter)
+Liquid::Template.register_filter(Jekyll::Contentful::RichTextFilter)
