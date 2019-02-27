@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## v1.8.1
 ### Fixed
 * Ensure configuration passed as `Jekyll.configuration['contentful']` from a `rake` task also works. [#68](https://github.com/contentful/jekyll-contentful-data-import/issues/68)
 * Ensure localized assets that don't have a fallback locale don't fail upon import.
