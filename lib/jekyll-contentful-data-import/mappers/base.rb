@@ -116,13 +116,13 @@ module Jekyll
             }
           end
 
-          file = asset.file
+          file = asset.fields[:file]
           file_url = file.nil? ? '' : file.url
 
           {
             'sys' => map_asset_metadata(asset),
-            'title' => asset.title,
-            'description' => asset.description,
+            'title' => asset.fields[:title],
+            'description' => asset.fields[:description],
             'url' => file_url
           }
         end
