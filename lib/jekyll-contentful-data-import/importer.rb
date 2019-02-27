@@ -12,7 +12,7 @@ module Jekyll
 
       def initialize(jekyll_config)
         @jekyll_config = jekyll_config
-        @config = jekyll_config['contentful']
+        @config = jekyll_config.key?('contentful') ? jekyll_config['contentful'] : jekyll_config
 
         autoload_mappers!
       end
