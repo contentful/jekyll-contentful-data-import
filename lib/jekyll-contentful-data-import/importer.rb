@@ -112,7 +112,7 @@ module Jekyll
 
       def client_options(options)
         options = options.each_with_object({}) do |(k, v), memo|
-          memo[k.to_sym] = value_for(v)
+          memo[k.to_sym] = value_for(options, k)
           memo
         end
 
