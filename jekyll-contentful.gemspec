@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
 
   # Additional dependencies
   s.add_dependency("contentful", '~> 2.1')
-  s.add_dependency("rich_text_renderer", '~> 0.1')
+  s.add_dependency("rich_text_renderer", '~> 0.3')
 
   s.add_development_dependency 'rubygems-tasks', '~> 0.2'
   s.add_development_dependency "guard"
