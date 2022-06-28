@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased
+## v1.8.2
 * Updated `rich_text_renderer` gem version.
 
 ## v1.8.1
