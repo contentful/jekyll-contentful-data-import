@@ -47,13 +47,13 @@ describe Jekyll::Contentful::Importer do
     describe '#client' do
       it 'creates client with some defaults' do
         expect(::Contentful::Client).to receive(:new).with(
-          space: 'foo',
-          access_token: 'foobar',
-          environment: 'master',
-          dynamic_entries: :auto,
-          raise_errors: true,
-          integration_name: 'jekyll',
-          integration_version: Jekyll::Contentful::VERSION
+          { space: 'foo',
+            access_token: 'foobar',
+            environment: 'master',
+            dynamic_entries: :auto,
+            raise_errors: true,
+            integration_name: 'jekyll',
+            integration_version: Jekyll::Contentful::VERSION }
         )
 
         subject.client('foo', 'foobar')
@@ -61,13 +61,13 @@ describe Jekyll::Contentful::Importer do
 
       it 'can override the defaults' do
         expect(::Contentful::Client).to receive(:new).with(
-          space: 'foo',
-          access_token: 'foobar',
-          environment: 'master',
-          dynamic_entries: :auto,
-          raise_errors: false,
-          integration_name: 'jekyll',
-          integration_version: Jekyll::Contentful::VERSION
+          { space: 'foo',
+            access_token: 'foobar',
+            environment: 'master',
+            dynamic_entries: :auto,
+            raise_errors: false,
+            integration_name: 'jekyll',
+            integration_version: Jekyll::Contentful::VERSION }
         )
 
         subject.client('foo', 'foobar', 'master', raise_errors: false)
