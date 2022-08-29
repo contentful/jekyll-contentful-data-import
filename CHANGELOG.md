@@ -4,6 +4,7 @@
 * Changed CI/CD vendor from tavis to circleci
 * Updated bundler
 * Fixed hash matching for ruby version greater than 3
+* Updated `jekyll` gem version
 
 ## v1.8.2
 * Updated `rich_text_renderer` gem version.
