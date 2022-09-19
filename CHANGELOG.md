@@ -1,10 +1,12 @@
 # Change Log
 
-##Unreleased
+## v1.8.3
+### Changed
 * Changed CI/CD vendor from tavis to circleci
 * Updated bundler
-* Fixed hash matching for ruby version greater than 3
 * Updated `jekyll` gem version
+### Fixed
+* Fixed hash matching for ruby version greater than 3
 
 ## v1.8.2
 * Updated `rich_text_renderer` gem version.
