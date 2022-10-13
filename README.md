@@ -77,7 +77,7 @@ client_options         | Hash describing `Contentful::Client` configuration. See
 base_path              | String with path to your Jekyll Application, defaults to current directory. Path is relative to your current location.
 destination            | String with path within `_data` under which to store the output yaml file. Defaults to contentful/spaces
 individual_entry_files | Boolean, if true will create an individual file per entry separated in folders by content type, file path will be `{space_alias}/{content_type_id}/{entry_id}.yaml`. Default behavior is to create a file per space. Usage is affected when this is set to true, please look in the section below.
-rich_text_mappings     | Hash with `'nodeTyoe' => RendererClass` pairs determining overrides for the [`RichTextRenderer` library](https://github.com/contentful/rich-text-renderer.rb) configuration.
+rich_text_mappings     | Hash with `'nodeType' => RendererClass` pairs determining overrides for the [`RichTextRenderer` library](https://github.com/contentful/rich-text-renderer.rb) configuration.
 
 You can add multiple spaces to your configuration
 
